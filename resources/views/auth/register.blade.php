@@ -64,17 +64,28 @@
                                 @endif
                             </div>
                         </div>-->
-                        <div class="dropdown show">
-  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown link
-  </a>
+                        <div class="form-group row">
+                            <label for="localization" class="col-md-4 col-form-label text-md-right">{{ __('Centre') }}</label>
+                            
+                            <div class="col-md-6">
+                
 
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
+                                <select class="form-control{{ $errors->has('localization') ? ' is-invalid' : '' }}" id="localization" name="localization" value="{{ old('localization') }}" required>
+                                <option></option>
+                                <option>Strasbourg</option>
+                                <option>Nanterre</option>
+                                <option>Toulouse</option>
+                            </select>
+                            
+                             @if ($errors->has('localization'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('localization') }}</strong>
+                                    </span>
+                                @endif
+                        </div>
+
+                     </div>
+                    
 
 
                         <div class="form-group row">

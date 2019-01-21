@@ -53,6 +53,8 @@ class RegisterController extends Controller
             'prenom' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'localization' => ['required', 'string', 'max:255'],
+
         ]);
     }
 
@@ -69,6 +71,8 @@ class RegisterController extends Controller
             'prenom' => $data['prenom'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'localization' => $data['localization'],
+
         ]);
     }
 }
