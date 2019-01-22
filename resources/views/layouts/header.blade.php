@@ -47,7 +47,7 @@
                     <ul class="navbar-nav mr-auto">
                           <a class="images" href="#"><img src="images/logo300.png" height=100></a>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item active active-header">
                 <a class="nav-link" href="{{ url('/accueil') }}">Accueil</a>
             </li>
             <li class="nav-item">
