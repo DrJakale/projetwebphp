@@ -6,17 +6,7 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    public function home (){
-    
-    $cars = ['honda', 'audi'];
-    return view('welcome', compact('cars'));
-    
-    }
-    
-    public function servicespage(){
-    return view('pages.services');
-    }
-    
+   
     public function login(){
         return view('pages.login');
     }
@@ -25,5 +15,11 @@ class PagesController extends Controller
     }
     public function accueil(){
         return view('pages.accueil');
+    }
+    public function ecom(){
+        return view('pages.ecom');
+    }
+    public function event(){
+        return view('pages.event');
     }
 }
