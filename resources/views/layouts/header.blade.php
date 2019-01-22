@@ -48,16 +48,16 @@
                           <a class="images" href="#"><img src="images/logo300.png" height=100></a>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="accueil.html">Accueil</a>
+                <a class="nav-link" href="{{ url('/acceuil') }}">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="event.html">Event</a>
+                <a class="nav-link" href="{{ url('/event') }}">Event</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="bai.html">Boite à idées</a>
+                <a class="nav-link" href="{{ url('/boiteaidees') }}">Boite à idées</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="ecom.html">E-Commerce</a>
+                <a class="nav-link" href="{{ url('/ecom') }}">E-Commerce</a>
             </li>
         </ul>
                     </ul>

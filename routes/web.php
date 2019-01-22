@@ -25,3 +25,4 @@ Route::get('services', 'PagesController@servicespage');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('boiteaidees', 'PagesController@boiteaidees');
