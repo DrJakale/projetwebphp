@@ -48,7 +48,7 @@
                           <a class="images" href="#"><img src="images/logo300.png" height=100></a>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ url('/acceuil') }}">Accueil</a>
+                <a class="nav-link" href="{{ url('/accueil') }}">Accueil</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/event') }}">Event</a>
