@@ -10,21 +10,19 @@
 | contains the "web" middleware group. Now create something great!
 |
 
+*/
 
-Route::get('/', function () {
-    $cars = [];
-    return view('welcome', compact('cars'));
-});
-
-Route::get('services', function(){
-   return view('pages.services');
-});*/
-
-Route::get('/', 'PagesController@home');
-Route::get('services', 'PagesController@servicespage');
+//Route pour accueil
+Route::get('/', 'PagesController@accueil');
+//Route pour login et register
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Routes pour onglets du site
 Route::get('boiteaidees', 'PagesController@boiteaidees');
 Route::get('accueil', 'PagesController@accueil');
+Route::get('event', 'PagesController@event');
+Route::get('ecom', 'PagesController@ecom');
+
 
