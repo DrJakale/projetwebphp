@@ -20,4 +20,10 @@ class PagesController extends Controller
     public function login(){
         return view('pages.login');
     }
+     public function boiteaidees(){
+        return view('pages.boiteaidees');
+    }
+    public function accueil(){
+        return view('pages.accueil');
+    }
 }
