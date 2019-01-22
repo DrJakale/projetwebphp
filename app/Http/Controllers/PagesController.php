@@ -19,7 +19,10 @@ class PagesController extends Controller
         return view('pages.accueil');
     }
     public function ecom(){
-        return view('pages.ecom');
+        $stock = DB::connection('mysql2')->table('stock')->get();
+        
+        
+        return view('pages.ecom')->with(array('stock'=>$stock));
     }
     public function event(){
         
