@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use View;
 
 class PagesController extends Controller
 {
@@ -20,6 +22,9 @@ class PagesController extends Controller
         return view('pages.ecom');
     }
     public function event(){
-        return view('pages.event');
-    }
+        
+        $events = DB::connection('mysql2')->table('events')->get();
+        
+        
+        return view('pages.event')->with(array('events'=>$events));  }
 }

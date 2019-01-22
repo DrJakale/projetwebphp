@@ -55,6 +55,22 @@ return [
             'strict' => false,
             'engine' => null,
         ],
+        
+        'mysql2' => [
+            'driver' => 'mysql',
+            'host' => 'chabanvpn.ovh',
+            'port' => '3306',
+            'database' => 'local',
+            'username' => 'workshop1',
+            'password' => 'workshop1',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',

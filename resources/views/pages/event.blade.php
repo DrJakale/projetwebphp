@@ -2,28 +2,16 @@
 
 @section('content')
 <div class="container">
+  @foreach ($events as $event)
     <div class="col-sm-4">
-            <img src="http://placehold.it/350x150" alt="..." />
+        <img src="{{$event->URL_Thumbnail}}" alt="..." height="180" width="320"/>
            <div class="wrapper">
-            
                 <div class="caption post-content">
-
-                    <h3>Robots!</h3>
-                    <p>Lorem ipsum dolor sit amet</p> 
-        
+                    <h3>{{$event->TITLE}}</h3>
+                    <p>Lorem ipsum dolor sit amet</p>
                 </div>
             </div>
         </div>
-
-    <div class="col-sm-4">
-      <h3>Column 2</h3>
-      <p>Lorem ipsum dolor..</p>
-      <p>Ut enim ad..</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 3</h3>
-      <p>Lorem ipsum dolor..</p>
-      <p>Ut enim ad..</p>
-    </div>
+    @endforeach
 </div>
 @endsection
