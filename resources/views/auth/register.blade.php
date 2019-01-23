@@ -73,8 +73,29 @@
 
                                 <select class="form-control{{ $errors->has('localization') ? ' is-invalid' : '' }}" id="localization" name="localization" value="{{ old('localization') }}" required>
                                 <option></option>
+                                <option>Angoulême</option>
+                                <option>Arras</option>
+                                <option>Bordeaux</option>
+                                <option>Brest</option>
+                                <option>Caen</option>
+                                <option>Châteauroux</option>
+                                <option>Dijon</option>
+                                <option>Grenoble</option>
+                                <option>La Rochelle</option>
+                                <option>Le Mans</option>
+                                <option>Lille</option>
+                                <option>Lyon</option>
+                                <option>Montpellier</option>
+                                <option>Nancy</option>
+                                <option>Nantes</option>
+                                <option>Nice</option>
+                                <option>Orléans</option>
+                                <option>Paris Nanterre</option>
+                                <option>Pau</option>
+                                <option>Reims</option>
+                                <option>Rouen</option>
+                                <option>Saint-Nazaire</option>
                                 <option>Strasbourg</option>
-                                <option>Nanterre</option>
                                 <option>Toulouse</option>
                             </select>
                             

@@ -24,5 +24,7 @@ Route::get('boiteaidees', 'PagesController@boiteaidees');
 Route::get('accueil', 'PagesController@accueil');
 Route::get('event', 'PagesController@event');
 Route::get('ecom', 'PagesController@ecom');
+Route::get('cat/{idcat}', 'PagesController@catecom');
+
 
 
