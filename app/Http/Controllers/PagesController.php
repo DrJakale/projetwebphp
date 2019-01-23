@@ -7,11 +7,7 @@ use DB;
 use View;
 
 class PagesController extends Controller
-{
-   
-    public function login(){
-        return view('pages.login');
-    }
+{   
      public function boiteaidees(){
         return view('pages.boiteaidees');
     }

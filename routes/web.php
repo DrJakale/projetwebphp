@@ -15,9 +15,8 @@
 //Route pour accueil
 Route::get('/', 'PagesController@accueil');
 
-//Route pour login et register
-Route::get('login', 'UserController@login')
-Route::get('register', 'UserController@register')
+Auth::routes();//Route pour login et register
+
     
 Route::get('/home', 'HomeController@index')->name('home');
 
