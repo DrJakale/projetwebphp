@@ -102,5 +102,6 @@
         </main>
 
     </div>
+    @yield('footer')
 </body>
 </html>
