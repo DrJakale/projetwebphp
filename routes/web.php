@@ -28,7 +28,3 @@ Route::get('createevent', 'PagesController@createevent');
 Route::get('ecom', 'PagesController@ecom');
 Route::get('cat/{idcat}', 'PagesController@catecom');
 Route::get('event/{idevent}', 'PagesController@visuevent');
-
-
-
-
