@@ -5,6 +5,7 @@ background-color: white;
 
 }
 
+/*  Navbar */
 .btn-outline-success{
   color: white;
   background-color: transparent;
@@ -124,20 +125,54 @@ text-align: center;
 
 .intro{
 
-    text-align: center;
-    font-size: 40px;
-    color: #fff;
+  text-align: center;
+  font-size: 40px;
+  color: #fff;
 
 
 }
 .text-intro{
 
-    color: #fff;
-    font-size: 20px;
+  color: #fff;
+  font-size: 20px;
+
+}
+.equipe-bde{
+
+  box-shadow: 1px 1px 12px #555;
+
+}
+.equipe-txt{
+
+  font-size: 30px;
+  color: #5c88da;
+
+}
+.container-case{
+
+  border-color: #fff;
+  padding: 10em;
 
 }
 
+.test{
 
+background-color: #0f0e0e;
+
+}
+.bloc{
+
+  margin: auto;
+  text-align: center;
+  font-size: 25px;
+  color: #5c88da;
+
+}
+#carousel {
+  background-color: #66635e;
+}
+
+/*Footer*/
 
 #mainFooter {
   background:#fff;padding:2.2em;display:flex;align-items:center;z-index:8000;flex:none;
