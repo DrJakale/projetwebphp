@@ -29,7 +29,7 @@ text-align: center;
     opacity: 1;
 }
 
-.active{
+.active-header{
 	border-bottom: 1px solid #f39c12;
 }
 
@@ -118,3 +118,20 @@ text-align: center;
  #social-em {
      color: #f39c12;
  }
+
+
+/*  Accueil  */
+
+.intro{
+
+    text-align: center;
+    font-size: 40px;
+    
+
+
+}
+.text-intro{
+
+    font-size: 20px;
+
+}
