@@ -44,9 +44,11 @@ class PagesController extends Controller
     public function visuevent($idevent){
         
         $events = DB::connection('mysql2')->table('events')->where('ID', '=', $idevent)->get();
+        $img = DB::connection('mysql2')->table('img')->where('ID_Events', '=', $idevent)->get();
         
+
         //dump($events);
-        return view('pages.visuevent')->with(array('events'=>$events));
+        return view('pages.visuevent')->with(array('events'=>$events,'img'=>$img));
     }
 
     public function createevent(){
