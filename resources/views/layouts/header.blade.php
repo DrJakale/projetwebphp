@@ -19,8 +19,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/.css') }}" rel="stylesheet">
-    
-    
+
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css%22%3E%22%3E">
@@ -29,7 +29,7 @@
    <script src="script.js"></script>
     <link rel="stylesheet" href="font.css">
    <link rel="stylesheet" href="style.css">
-    
+
 </head>
 <body>
     <div id="app">
@@ -46,16 +46,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item active active-header">
+            <li class="nav-item {{ Request::segment(1) === 'accueil' ? 'active active-header' : null }} {{ Request::segment(1) === '' ? 'active active-header' : null }}">
                 <a class="nav-link" href="{{ url('/accueil') }}">Accueil</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ Request::segment(1) === 'event' ? 'active active-header' : null }}">
                 <a class="nav-link" href="{{ url('/event') }}">Event</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ Request::segment(1) === 'boiteaidees' ? 'active active-header' : null }}">
                 <a class="nav-link" href="{{ url('/boiteaidees') }}">Boite à idées</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ Request::segment(1) === 'ecom' ? 'active active-header' : null }} {{ Request::segment(1) === 'cat' ? 'active active-header' : null }}">
                 <a class="nav-link" href="{{ url('/ecom') }}">E-Commerce</a>
             </li>
         </ul>
@@ -65,11 +65,11 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item {{ Request::segment(1) === 'login' ? 'active active-header' : null }}">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                <li class="nav-item {{ Request::segment(1) === 'register' ? 'active active-header' : null }}">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
