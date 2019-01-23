@@ -46,7 +46,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item {{ Request::segment(1) === 'accueil' ? 'active active-header' : null }} {{ Request::segment(1) === '' ? 'active active-header' : null }}">
+            <li class="nav-item {{ Request::segment(1) === NULL ? 'active active-header' : null }} {{ Request::segment(1) === 'accueil' ? 'active active-header' : null }} {{ Request::segment(1) === '' ? 'active active-header' : null }}">
                 <a class="nav-link" href="{{ url('/accueil') }}">Accueil</a>
             </li>
             <li class="nav-item {{ Request::segment(1) === 'event' ? 'active active-header' : null }}">

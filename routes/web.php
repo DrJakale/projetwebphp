@@ -17,7 +17,8 @@ Route::get('/', 'PagesController@accueil');
 
 Auth::routes();//Route pour login et register
 
-    
+//Route::get('login', 'PagesController@login');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Routes pour onglets du site
