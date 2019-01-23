@@ -23,8 +23,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('boiteaidees', 'PagesController@boiteaidees');
 Route::get('accueil', 'PagesController@accueil');
 Route::get('event', 'PagesController@event');
+Route::get('createevent', 'PagesController@createevent');
 Route::get('ecom', 'PagesController@ecom');
 Route::get('cat/{idcat}', 'PagesController@catecom');
+Route::get('event/{idevent}', 'PagesController@visuevent');
+
 
 
 

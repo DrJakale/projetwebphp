@@ -17,6 +17,9 @@ class PagesController extends Controller
     }
     public function accueil(){
         return view('pages.accueil');
+        
+        
+    //pages ecommerce
     }
     public function ecom(){
         $stock = DB::connection('mysql2')->table('stock')->get();
@@ -30,15 +33,29 @@ class PagesController extends Controller
         $categories = DB::connection('mysql2')->table('categories')->where('ID', '=', $idcat)->get();
         //dump($categories)
         return view('pages.catecom')->with(array('stock'=>$stock, 'categories'=>$categories));
-;
     }
     
-    
+   //pages event 
     
     public function event(){
         
         $events = DB::connection('mysql2')->table('events')->get();
         
         
-        return view('pages.event')->with(array('events'=>$events));  }
+        return view('pages.event')->with(array('events'=>$events));
+    }
+
+    public function visuevent($idevent){
+        
+        $events = DB::connection('mysql2')->table('events')->where('ID', '=', $idevent)->get();
+        
+        //dump($events);
+        return view('pages.visuevent')->with(array('events'=>$events));
+    }
+
+    public function createevent(){
+        return view('pages.createevent');
+    }
+    
+    
 }
