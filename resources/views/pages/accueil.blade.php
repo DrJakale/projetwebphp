@@ -1,7 +1,7 @@
 @extends('layouts.header')
 
 @section ('content')
-<div>
+<div class="test">
     <div class="container intro">
         <h1> BDE exia.CESI Strasbourg</h1>
         <p class="text-intro">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="carousel-item">
                     <div class="carousel-page">
-                        <img src="{{ asset('images/lala.jpg') }}" class="img-responsive img-rounded"style="margin:0px auto;"/>
+                        <img src="{{ asset('images/logs.png') }}" class="img-responsive img-rounded"style="margin:0px auto;"/>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -42,10 +42,10 @@
     <br>
     <br>
     <br>
-    <div class= "test" style="width:auto; text-align:center; padding:20px;">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    <div class= "equipe-txt" style="width:auto; text-align:center; padding:20px;">
+            <p>Bienvenue sur le site du BDE de l'exia.CESI Strasbourg. L'équipe du BDE présente ci-dessous est à votre disposition.
             </p>
-            <img src="{{ asset('images/bde.jpg') }}" title="ZEBI" style="width: 1000px; height: auto">
+            <img src="{{ asset('images/bde.jpg') }}" class="equipe-bde" title="équipe BDE" style="width: 1000px; height: auto">
 </div>
 
     <div class="container">
