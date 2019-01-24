@@ -41,8 +41,6 @@
             </div>
         </div>
     </div>
-</a>
-    </a>
 @endif
 @endforeach
 </div>
