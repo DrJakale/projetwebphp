@@ -24,7 +24,7 @@ class PagesController extends Controller
             ->join('stock', 'contains.id_stock', '=', 'stock.id')
             ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 0]])
             ->get();
-
+            
         return view('pages.panier')->with(array('basket'=>$basket));
       }else{
         return view('auth.login');
@@ -60,15 +60,12 @@ class PagesController extends Controller
 
     public function visuevent($idevent){
 
-        $events = DB::connection('mysql2')->table('events')->where('ID', '=', $idevent)->get();
-        $img = DB::connection('mysql2')->table('img')->where('ID_Events', '=', $idevent)->get();
 
-
-        $events = DB::connection('mysql2')->table('events')->join('img','ID_Events','=','Events.ID')->groupBy('Events.ID')->get();
+        $events = DB::connection('mysql2')->table('events')->join('img','ID_Events','=','Events.ID')->where('ID_Events','=', $idevent)->get();
         //$img = DB::connection('mysql2')->table('img')->join('events','ID','=','img.ID_Events')->get();
 
         dump($events);
-        return view('pages.event')->with(array('events'=>$events/*'img'=>$img*/));
+        return view('pages.visuevent')->with(array('events'=>$events/*'img'=>$img*/));
     }
 
 
