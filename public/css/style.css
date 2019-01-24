@@ -1,8 +1,4 @@
-body{
 
-    margin-top: 150px
-
-}
 
 /*  Navbar */
 .btn-outline-success{
@@ -197,7 +193,17 @@ text-align: center;
   width:500px;
   height:500px;
 
-}
+} 
+/* Login */
+
+
+
+
+
+
+
+
+
 /*Footer*/
 
 #mainFooter {
