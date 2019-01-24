@@ -51,6 +51,7 @@ class PagesController extends Controller
    //pages event
 
     public function event(){
+<<<<<<< Updated upstream
 
         $events = DB::connection('mysql2')->table('events')->get();
 
@@ -63,9 +64,25 @@ class PagesController extends Controller
         $events = DB::connection('mysql2')->table('events')->where('ID', '=', $idevent)->get();
         $img = DB::connection('mysql2')->table('img')->where('ID_Events', '=', $idevent)->get();
 
+=======
+        
+        $events = DB::connection('mysql2')->table('events')->join('img','ID_Events','=','Events.ID')->groupBy('Events.ID')->get();
+        //$img = DB::connection('mysql2')->table('img')->join('events','ID','=','img.ID_Events')->get();
+        
+        dump($events);
+        return view('pages.event')->with(array('events'=>$events/*'img'=>$img*/));
+    }
 
-        //dump($events);
-        return view('pages.visuevent')->with(array('events'=>$events,'img'=>$img));
+    public function visuevent($idevent){
+        
+        $events = DB::connection('mysql2')->table('events')->join('img','ID_Events','=','Events.ID')->where('Events.ID', '=', $idevent)->get();
+        //$events = DB::connection('mysql2')->table('events')->where('ID', '=', $idevent)->get();
+        //$img = DB::connection('mysql2')->table('img')->where('ID_Events', '=', $idevent)->get();
+        
+>>>>>>> Stashed changes
+
+        dump($events);
+        return view('pages.visuevent')->with(array('events'=>$events));
     }
 
     public function createevent(){
