@@ -65,6 +65,7 @@ text-align: center;
   color: #f39c12;
   border-radius: .25rem;
   margin: 0 0.25em;
+  transition: color 0.15s
 }
 
 .navbar .nav-item.active .nav-link{
@@ -139,27 +140,19 @@ text-align: center;
 }
 .equipe-bde{
 
-  box-shadow: 5px 5px 12px #555;
+  box-shadow: 1px 1px 12px #555;
 
 }
 .equipe-txt{
 
   font-size: 30px;
-  color: #304b7e;
-  background-color: #fff;
-  margin: 5em;
-  box-shadow: 5px 5px 12px #fff;
-
+  color: #5c88da;
 
 }
 .container-case{
-  
-  background-color: #fff;
+
   border-color: #fff;
-  display: block;
-  padding: 5em;
-  margin: 5em;
-  box-shadow: 5px 5px 12px #fff;
+  padding: 10em;
 
 }
 
@@ -171,31 +164,14 @@ background-color: #0f0e0e;
 .bloc{
 
   margin: auto;
-  
-
-}
-
-.row{
-  background-color: #fff;
-  display: block;
-  box-shadow: 5px 5px 12px #fff;
-}
-.carouss{
-
-  display: block;
-}
-.titre-pages{
-
-  font-weight: bold;
   text-align: center;
-  color: #304b7e;
+  font-size: 25px;
+  color: #5c88da;
+
 }
-.link-pages{
-
-  width:500px;
-  height:500px;
-
-} 
+#carousel {
+  background-color: #66635e;
+}
 
 /*Footer*/
 
@@ -204,7 +180,9 @@ background-color: #0f0e0e;
 }
 
 #mainFooter .footer-left {
-  width: 126px;display: block;float: left
+  width: 126px;
+  display: block;
+  float: left
 }
 .vertical-logo-container {
   width: 126px;
@@ -262,19 +240,39 @@ background-color: #0f0e0e;
   line-height: 3em;
 }
 .social-nav .icon-bubble::before {
-  content: '';position: absolute;top: 0;left: 0;width: 100%;height: 100%;border-radius: 50%;z-index: -1;box-shadow: inset 0 0 0 35px #221f1f;transform: scale3d(0.9, 0.9, 1);transition: box-shadow 0.2s, transform 0.2s;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: -1;
+  box-shadow: inset 0 0 0 35px #221f1f;
+  transform: scale3d(0.9, 0.9, 1);
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 .social-nav .icon-bubble a {
-  display: block;color: #fff;outline: 0;
+  display: block;
+  color: #fff;
+  outline: 0;
 }
 .social-nav li a, .legal-nav li a {
-  color:#8c8c8c;text-decoration: none;padding-bottom: 1em;}
+  color:#8c8c8c;
+  text-decoration: none;
+  padding-bottom: 1em;
+}
+
 .hidden {
   display: none !important;
 }
+
 .legal-nav li:last-child {
-  font-weight:700;border-left: 1px solid #8c8c8c;padding-left: 2.8em;
+  font-weight:700;
+  border-left: 1px solid #8c8c8c;
+  padding-left: 2.8em;
 }
+
 .legal-nav li:last-child a{
   color:#221f1f;
 }
@@ -294,11 +292,17 @@ background-color: #0f0e0e;
   transform: scale3d(1, 1, 1);
 }
 .social-nav .icon-bubble:hover a{
-  border-bottom: none;color: #f39c12;
+  border-bottom: none;
+  color: #f39c12;
 }
 @media screen and (max-width: 767px) {
 #mainFooter {
-  box-lines: multiple;flex-wrap: wrap;box-align: start;flex-align: start;align-items: flex-start;padding: 2.2em 2.2em 5rem;
+  box-lines: multiple;
+  flex-wrap: wrap;
+  box-align: start;
+  flex-align: start;
+  align-items: flex-start;
+  padding: 2.2em 2.2em 5rem;
 }
 #mainFooter .footer-left,
 #mainFooter .footer-right {
@@ -317,6 +321,62 @@ background-color: #0f0e0e;
 @media screen and (max-width: 767px) {
   .legal-nav li:last-child {border-left: none;padding-left: 0;
     }}
+
+.btnevent {
+
+  margin-bottom: 10px;
+  color: #007Bff;
+  background-color: transparent;
+  border-color: #007bff;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid;
+  padding: 0.375rem 0.75rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+}
+
+.btnevent:hover{
+
+  font-style: none;
+  text-decoration: none;
+  color: orange;
+  background-color: none;
+  border-color: orange;
+
+}
+
+.imgevent{
+
+margin-top: 10px;
+display: block;
+border: 2px solid;
+border-color: orange;
+border-radius: 0.25rem;
+
+}
+
+.titlevent{
+
+color: black;
+font-family: Roboto;
+font-weight: bold;
+text-decoration: underline;
+
+
+}
+
+.dscevent{
+
+color: black;
+font-family: Roboto;
+font-style: italic;
+
+
+}
 
 
 
