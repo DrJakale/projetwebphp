@@ -24,7 +24,7 @@ class PagesController extends Controller
             ->join('stock', 'contains.id_stock', '=', 'stock.id')
             ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 0]])
             ->get();
-
+            
         return view('pages.panier')->with(array('basket'=>$basket));
       }else{
         return view('auth.login');
