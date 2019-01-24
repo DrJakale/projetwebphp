@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use View;
+use Auth;
 
 class PagesController extends Controller
 {
@@ -20,7 +21,17 @@ class PagesController extends Controller
 
     //pages ecommerce
     public function panier(){
-        return view('pages.panier');
+      if(!Auth::id()){
+      $basket = DB::connection('mysql2')->table('orderindex')
+            ->join('contains', 'orderindex.id', '=', 'contains.id')
+            ->join('stock', 'contains.id_stock', '=', 'stock.id')
+            ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 0]])
+            ->get();
+
+        return view('pages.panier')->with(array('basket'=>$basket));
+      }else{
+        return view('pages.login');
+      }
     }
 
     public function ecom(){

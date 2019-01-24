@@ -60,7 +60,7 @@
             </li>
             @if (Request::segment(1) === 'ecom' || Request::segment(1) === 'cat' || Request::segment(1) === 'panier')
             <li class="nav-item {{ Request::segment(1) === 'panier' ? 'active active-header' : null }}">
-                <a class="nav-link" href="{{ url('/panier') }}"><img src="http://icons.iconarchive.com/icons/iconsmind/outline/512/Shopping-Cart-icon.png" height="20"> Panier</a>
+                <a class="nav-link" href="{{ url('/panier') }}"><img src="http://icons.iconarchive.com/icons/iconsmind/outline/512/Shopping-Cart-icon.png" height="20" style="margin-bottom: 5px"> Panier</a>
             </li>
             @endif
         </ul>
@@ -71,17 +71,17 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item {{ Request::segment(1) === 'login' ? 'active active-header' : null }}">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item {{ Request::segment(1) === 'register' ? 'active active-header' : null }}">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __("S'enregistrer") }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->prenom }} {{ Auth::user()->nom }} </span>
+                                    <span>{{ Auth::user()->prenom }} {{ Auth::user()->nom }} </span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
