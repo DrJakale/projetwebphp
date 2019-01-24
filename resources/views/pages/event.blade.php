@@ -24,7 +24,7 @@
 @endforeach
 </div>
 
-<div class="container"><h3>Évenements à venir</div>
+<div class="container"><h3>Évenements passés</div>
 <div class="container" style="border:1px solid #cecece;">
 @foreach ($events as $event)
 @if($event->Type == 2)

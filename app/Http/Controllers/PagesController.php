@@ -14,9 +14,6 @@ class PagesController extends Controller
     }
     public function accueil(){
         return view('pages.accueil');
-
-
-
     }
 
     //pages ecommerce
