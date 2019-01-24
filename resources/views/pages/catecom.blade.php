@@ -12,10 +12,10 @@
            <div class="wrapper">
                 <div class="caption post-content col-sm-6">
                     <h3>{{$produit->Name}}</h3>
-                    <p>{{$produit->Desc_URL}}</p>
+                    <p>{{$produit->Desc}}</p>
                 </div>
                <div class="caption post-content col-sm-6">
-                    <h3>{{$produit->Price}}€</h3>
+                    <h3>{{$produit->Price}}FRF</h3>
                    <button type="button" class="btn btn-primary btn-xs">Ajouter au panier</button>
                </div>
             </div>

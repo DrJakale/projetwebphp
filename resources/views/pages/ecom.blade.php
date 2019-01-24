@@ -1,11 +1,6 @@
 @extends('layouts.header')
 
 @section('content')
-<div class = "container">
-<div class="col-sm-1 colsm-push-11">
-<button type="button" class="btn btn-primary col-sm-push8" >Panier</button>
-</div>
-</div>
 
 <div class="container" style="border:1px solid #cecece;">
     <h3>Liste des catégories</h3>
@@ -31,10 +26,10 @@
            <div class="wrapper">
                 <div class="caption post-content col-sm-6">
                     <h3>{{$produit->Name}}</h3>
-                    <p>{{$produit->Desc_URL}}</p>
+                    <p>{{$produit->Desc}}</p>
                 </div>
                <div class="caption post-content col-sm-6">
-                    <h3>{{$produit->Price}}€</h3>
+                    <h3>{{$produit->Price}}FRF</h3>
                    <button type="button" class="btn btn-primary btn-xs">Ajouter au panier</button>
                </div>
             </div>

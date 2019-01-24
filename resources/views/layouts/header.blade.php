@@ -58,6 +58,11 @@
             <li class="nav-item {{ Request::segment(1) === 'ecom' ? 'active active-header' : null }} {{ Request::segment(1) === 'cat' ? 'active active-header' : null }}">
                 <a class="nav-link" href="{{ url('/ecom') }}">E-Commerce</a>
             </li>
+            @if (Request::segment(1) === 'ecom' || Request::segment(1) === 'cat' || Request::segment(1) === 'panier')
+            <li class="nav-item {{ Request::segment(1) === 'panier' ? 'active active-header' : null }}">
+                <a class="nav-link" href="{{ url('/panier') }}"><img src="http://icons.iconarchive.com/icons/iconsmind/outline/512/Shopping-Cart-icon.png" height="20"> Panier</a>
+            </li>
+            @endif
         </ul>
                     </ul>
 
@@ -76,14 +81,14 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->prenom }} {{ Auth::user()->nom }} </span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Se déconnecter') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

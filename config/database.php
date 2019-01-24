@@ -55,12 +55,12 @@ return [
             'strict' => false,
             'engine' => null,
         ],
-        
+
         'mysql2' => [
             'driver' => 'mysql',
             'host' => 'chabanvpn.ovh',
             'port' => '3306',
-            'database' => 'local',
+            'database' => 'laravel',
             'username' => 'workshop1',
             'password' => 'workshop1',
             'unix_socket' => env('DB_SOCKET', ''),
