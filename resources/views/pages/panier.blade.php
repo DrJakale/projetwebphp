@@ -1,9 +1,9 @@
 @extends('layouts.header')
 
 @section('content')
-<div class="container" style="border:1px solid #cecece;">
-    <h3>Panier</h3>
+<div class="container"><h3>Panier</h3></div>
   @foreach ($basket as $produit)
+  <div class="container" style="border:1px solid #cecece;">
   <div class="col-sm-12">
 
     <div class="col-sm-4">
@@ -18,10 +18,10 @@
 
             </div>
       </div>
-    </br>
+    </div>
     @endforeach
-</div>
-@endif
+  </div>
+
 
 @endsection
 

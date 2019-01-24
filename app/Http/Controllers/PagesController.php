@@ -21,7 +21,7 @@ class PagesController extends Controller
 
     //pages ecommerce
     public function panier(){
-      if(!Auth::id()){
+      if(Auth::id()){
       $basket = DB::connection('mysql2')->table('orderindex')
             ->join('contains', 'orderindex.id', '=', 'contains.id')
             ->join('stock', 'contains.id_stock', '=', 'stock.id')
@@ -30,7 +30,7 @@ class PagesController extends Controller
 
         return view('pages.panier')->with(array('basket'=>$basket));
       }else{
-        return view('pages.login');
+        return view('auth.login');
       }
     }
 
@@ -51,10 +51,12 @@ class PagesController extends Controller
    //pages event
 
     public function event(){
-<<<<<<< Updated upstream
 
-        $events = DB::connection('mysql2')->table('events')->get();
-
+        $events = DB::connection('mysql2')
+        ->table('events')
+        ->join('img', 'events.id', '=', 'img.id_events')
+        ->where('Thumbnail', '=', 1)
+        ->get();
 
         return view('pages.event')->with(array('events'=>$events));
     }
@@ -64,26 +66,15 @@ class PagesController extends Controller
         $events = DB::connection('mysql2')->table('events')->where('ID', '=', $idevent)->get();
         $img = DB::connection('mysql2')->table('img')->where('ID_Events', '=', $idevent)->get();
 
-=======
-        
+
         $events = DB::connection('mysql2')->table('events')->join('img','ID_Events','=','Events.ID')->groupBy('Events.ID')->get();
         //$img = DB::connection('mysql2')->table('img')->join('events','ID','=','img.ID_Events')->get();
-        
+
         dump($events);
         return view('pages.event')->with(array('events'=>$events/*'img'=>$img*/));
     }
 
-    public function visuevent($idevent){
-        
-        $events = DB::connection('mysql2')->table('events')->join('img','ID_Events','=','Events.ID')->where('Events.ID', '=', $idevent)->get();
-        //$events = DB::connection('mysql2')->table('events')->where('ID', '=', $idevent)->get();
-        //$img = DB::connection('mysql2')->table('img')->where('ID_Events', '=', $idevent)->get();
-        
->>>>>>> Stashed changes
 
-        dump($events);
-        return view('pages.visuevent')->with(array('events'=>$events));
-    }
 
     public function createevent(){
         return view('pages.createevent');
