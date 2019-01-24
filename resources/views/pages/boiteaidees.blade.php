@@ -1,23 +1,35 @@
 @extends('layouts.header')
 
 @section('content')
-<div class="container">
-  <div class="row">
-    <div class="col-sm-4">
-      <h3>Column 1</h3>
-      <p>Lorem ipsum dolor..</p>
-      <p>Ut enim ad..</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 2</h3>
-      <p>Lorem ipsum dolor..</p>
-      <p>Ut enim ad..</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 3</h3>
-      <p>Lorem ipsum dolor..</p>
-      <p>Ut enim ad..</p>
-    </div>
-  </div>
+
+<div class = "container">
+  <a href="createevent" class="btnevent" role="button">Proposer une idée</a>
 </div>
+<div class="container"><h3>Idées proposés</div>
+  <div class="container" style="border:1px solid #cecece;">
+    @foreach ($events as $event)
+    @if($event->Type == 0)
+    <a href="event/{{$event->ID_Events}}">
+      <div class="container">
+        <img class="baiimg" src="{{$event->URL}}" alt="..." height="180" width="320"/>
+        <div class="baitxt">
+          <h3>{{$event->TITLE}} <a href="#" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-heart-empty"></span> </a> <a href="#" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-heart"></span> </a></h3>
+          <p>{{$event->TXT}}</p>
+          
+        </div>
+      </div>
+    </a>
+  </br>
+  @endif
+  @endforeach
+</div>
+
+
+</div>
+
+
+@endsection
+
+@section('footer')
+@include('layouts.footer')
 @endsection

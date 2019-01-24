@@ -13,7 +13,7 @@
     <div class="col-sm-4">
             <img src="{{$event->URL}}" alt="..." height="180" width="320"/>
            <div class="wrapper">
-                <div class="caption post-content">
+                <div class="caption post-content titleevent">
                     <h3>{{$event->TITLE}}</h3>
                     <p>Lorem ipsum dolor sit amet</p>
                 </div>

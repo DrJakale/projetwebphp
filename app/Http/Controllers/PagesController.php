@@ -9,9 +9,7 @@ use Auth;
 
 class PagesController extends Controller
 {
-     public function boiteaidees(){
-        return view('pages.boiteaidees');
-    }
+     
     public function accueil(){
         return view('pages.accueil');
     }
@@ -56,6 +54,17 @@ class PagesController extends Controller
         ->get();
 
         return view('pages.event')->with(array('events'=>$events));
+    }
+
+    public function boiteaidees(){
+
+        $events = DB::connection('mysql2')
+        ->table('events')
+        ->join('img', 'events.id', '=', 'img.id_events')
+        ->where('Thumbnail', '=', 1)
+        ->get();
+
+        return view('pages.boiteaidees')->with(array('events'=>$events));
     }
 
     public function visuevent($idevent){

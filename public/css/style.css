@@ -354,7 +354,6 @@ text-align: center;
     }}
 
 .btnevent {
-
   margin-bottom: 10px;
   color: #007Bff;
   background-color: transparent;
@@ -367,44 +366,71 @@ text-align: center;
   line-height: 1.5;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-
 }
 
 .btnevent:hover{
-
   font-style: none;
   text-decoration: none;
   color: orange;
   background-color: none;
   border-color: orange;
-
 }
 
 .imgevent{
-
 margin-top: 10px;
 display: block;
 border: 2px solid;
 border-color: orange;
 border-radius: 0.25rem;
-
 }
 
 .titlevent{
-
 color: black;
 font-family: Roboto;
 font-weight: bold;
 text-decoration: underline;
-
-
 }
 
 .dscevent{
-
 color: black;
 font-family: Roboto;
 font-style: italic;
+}
 
+.baiimg{
+float: left;
+margin-top: 10px;
+margin-right: 10px;
+}
 
+.baitxt h3{
+color: #f39c12;
+}
+
+.baitxt p{
+color: #929292;
+font-style: italic;
+}
+
+.btnjaime{
+  margin-bottom: 10px;
+  color: #007Bff;
+  background-color: transparent;
+  border-color: #007bff;
+  display: inline-block;
+  text-align: center;
+  border: 0px solid;
+  padding: 0.375rem 0.75rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+}
+
+.btnjaime:hover{
+  font-style: none;
+  text-decoration: none;
+  color: red;
+  border-color: orange;
 }
