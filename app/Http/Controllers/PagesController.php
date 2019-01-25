@@ -21,10 +21,6 @@ class PagesController extends Controller
         return view('pages.privacy');
     }
 
-    public function ventes(){
-        return view('pages.ventes');
-    }
-
     //pages ecommerce
     public function panier(){
       if(Auth::id()){
@@ -109,6 +105,7 @@ class PagesController extends Controller
         
         $img = DB::connection('mysql2')->table('img')->where('ID','=', $idphoto)->get();
         $comment = DB::connection('mysql2')->table('comment')->where('ID_IMG','=', $idphoto)->get();
+        
         dump($img);
         dump($comment);
         return view('pages.photo')->with(array('img'=>$img, 'comment'=>$comment));
