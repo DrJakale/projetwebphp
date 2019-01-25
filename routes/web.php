@@ -30,7 +30,7 @@ Route::get('ecom', 'PagesController@ecom');
 Route::get('panier', 'PagesController@panier');
 Route::get('cat/{idcat}', 'PagesController@catecom');
 Route::get('event/{idevent}', 'PagesController@visuevent');
-Route::get('profile', 'PagesController@profile');
+Route::get('profil', 'PagesController@profil');
 Route::get('privacy', 'PagesController@privacy');
 Route::get('mescommandes', 'PagesController@mescommandes');
 Route::get('event/photo/{idphoto}', 'PagesController@photo');
