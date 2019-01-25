@@ -19,30 +19,21 @@
             <div class="card">
 
                 <div class="card-body">
-                    <form method="POST">
-                        @csrf
+                    <form method="post", action="event/photo/{idphoto}" >
+                        {{csrf_field()}}
 
                         <div class="form-group row" >
-                            <label for="email" class="col-md-2 col-form-label text-md-right">Commentaire</label>
+                            <label for="commentaire" class="col-md-2 col-form-label text-md-right">Commentaire</label>
                             <div class= "form-group" style="margin-left: 15px; margin-right: 15px;">
-                                <textarea data-length=250 class="form-control" name="Text1" cols="100" rows="5"></textarea>
-                            </div>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Connexion') }}
-                                </button>
+                                <textarea data-length=250 class="form-control" name="comment" cols="100" rows="5"></textarea>
                             </div>
                         </div>
+                    <div class="col-md-8 offset-md-4">
+                        <input type="submit" value="Send.">
+                    </div>
+                            
                     </form>
+                    
                 </div>
             </div>
         </div>

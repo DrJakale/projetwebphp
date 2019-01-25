@@ -139,6 +139,18 @@ class PagesController extends Controller
         dump($comment);
         return view('pages.photo')->with(array('img'=>$img, 'comment'=>$comment));
     }
-
+    
+    public function storecomment($idphoto){
+        //Connection à la bdd en eloquent
+        $commentModel = new commentModel;
+        $commentModel->setConnection('mysql2');
+        
+        //Début tuto laravel
+        $commentModel->comment = request('comment');
+        
+            $project->save();
+        
+        return redirect('event/photo/{idphoto}');
+    }
 
 }
