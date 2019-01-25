@@ -1,6 +1,7 @@
 @extends('layouts.header')
 
 @section ('content')
+<div class="container">{{ Request::segment(1) === 'logout' ? 'Vous êtes déconnecté' : null }}</div>
 <div class="test">
     <div class="container intro">
         <h1> BDE exia.CESI Strasbourg</h1>
@@ -27,7 +28,7 @@
                     <div class="carousel-page">
                         <a href="{{ url('/boiteaidees') }}">
                         <img src="{{ asset('images/troll.jpg') }}" class="img-responsive "style="margin:0px auto; height: 500px;"/>
-                        </a>    
+                        </a>
                     </div>
                 </div>
                 <div class="carousel-item ">
@@ -76,13 +77,12 @@
                 <a href="{{ url('/ecom') }}"><img class="link-pages" src="{{ asset('images/lala.jpg') }}" ></a>
             </div>
         </div>
-    </div>    
-    
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>           
-            
-@endsection
+    </div>
 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+@endsection
