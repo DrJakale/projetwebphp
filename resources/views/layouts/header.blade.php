@@ -29,6 +29,9 @@
    <script src="script.js"></script>
     <link rel="stylesheet" href="font.css">
    <link rel="stylesheet" href="style.css">
+    
+    <script type="text/javascript" src="jquery-3.3.1.js"></script>
+
 
 </head>
 <body>
