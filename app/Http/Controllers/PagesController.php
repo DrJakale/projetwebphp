@@ -106,7 +106,12 @@ class PagesController extends Controller
     }
     
     public function photo($idphoto){
-        return view('pages.photo');
+        
+        $img = DB::connection('mysql2')->table('img')->where('ID','=', $idphoto)->get();
+        $comment = DB::connection('mysql2')->table('comment')->where('ID_IMG','=', $idphoto)->get();
+        dump($img);
+        dump($comment);
+        return view('pages.photo')->with(array('img'=>$img, 'comment'=>$comment));
     }
 
 

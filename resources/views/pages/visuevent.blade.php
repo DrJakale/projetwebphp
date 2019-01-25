@@ -9,11 +9,15 @@
     @foreach ($events as $event)
       @if($event->Thumbnail == 1)
       <div class="carousel-item active">
-      <img class = "img-fluid mx-auto d-block" src="{{$event->URL}}"> 
+      <a href="photo/{{$event->ID}}">
+      <img class = "img-fluid mx-auto d-block" src="{{$event->URL}}">
+      </a>
     </div>
       @else
     <div class="carousel-item">
+      <a href="photo/{{$event->ID}}">
       <img src="{{$event->URL}}" class = "mx-auto d-block img-fluid">
+      </a>
     </div>
   </div>
     @endif
