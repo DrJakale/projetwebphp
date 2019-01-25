@@ -1,7 +1,9 @@
 @extends('layouts.header')
 
 @section ('content')
-<div class="container">{{ Request::segment(1) === 'logout' ? 'Vous êtes déconnecté' : null }}</div>
+<div class="alert alert-danger container" role="alert">
+  <strong>{{ Request::segment(1) === 'logout' ? 'Vous êtes déconnecté' : null }}</strong>
+</div>
 <div class="test">
     <div class="container intro">
         <h1> BDE exia.CESI Strasbourg</h1>
