@@ -1,15 +1,14 @@
 @extends('layouts.header')
 @section('content')
-<div class='container'>
+<div class="container" style="border:1px solid #cecece; max-width: 40%;">
 @foreach($img as $photo)
 
-    <img class = "img-fluid mx-auto d-block" src="{{$photo->URL}}">
+    <img style="margin-top: 10px; " class = "img-fluid mx-auto d-block" src="{{$photo->URL}}">
 @endforeach
 
-</div>
-
 @foreach($comment as $comment)
-    <p>{{$comment->TXT}}</p>
+<hr>
+    <p style="margin-left: 5px;">{{$comment->TXT}}</p>
 @endforeach
 </div>
 @endsection

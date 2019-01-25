@@ -22,7 +22,7 @@
   <div class="container" style="border:1px solid #cecece;">
     @foreach ($events as $event)
     @if($event->Type == 0)
-    <a href="event/{{$event->ID_Events}}">
+   <a href="event/{{$event->ID_Events}}">
       <div class="container">
         <img class="baiimg" src="{{$event->URL}}" alt="..." height="180" width="320"/>
         <div class="baitxt">
@@ -32,7 +32,7 @@
         </div>
       </div>
     </a>
-  </br>
+<hr>
   @endif
   @endforeach
 </div>
