@@ -8,7 +8,6 @@
 
 </div>
 
-<div class='container'>
 @foreach($comment as $comment)
     <p>{{$comment->TXT}}</p>
 @endforeach
