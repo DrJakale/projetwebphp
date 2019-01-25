@@ -12,10 +12,11 @@
                 </ul>
                 <ul class="legal-nav">
                     <li><a href="{{ url('/accueil') }}">Accueil</a></li>
-                    <li><a href="{{ url('/event') }}" target="_blank">Event</a></li>
-                    <li><a href="{{ url('/boiteaidees') }}" target="_blank">Boite à Idées</a></li>
-                    <li><a href="{{ url('/ecom') }}" target="_blank">E-Commerce</a></li>
-                    <li><a href="{{ url('/privacy') }}" target="_blank">Mention Légales</a></li>
+                    <li><a href="{{ url('/event') }}">Event</a></li>
+                    <li><a href="{{ url('/boiteaidees') }}">Boite à Idées</a></li>
+                    <li><a href="{{ url('/ecom') }}">E-Commerce</a></li>
+                    <li><a href="{{ url('/privacy') }}">Mention Légales</a></li>
+                    <li><a href="{{ url('/ventes') }}" >Condition de ventes</a></li>
                     <li class="legal-nav-tx">© 2019 Ivan, Thibaut, Dorian & Louis</li>
                 </ul>
             </div>

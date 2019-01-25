@@ -21,6 +21,10 @@ class PagesController extends Controller
         return view('pages.privacy');
     }
 
+    public function ventes(){
+        return view('pages.ventes');
+    }
+
     //pages ecommerce
     public function panier(){
       if(Auth::id()){
