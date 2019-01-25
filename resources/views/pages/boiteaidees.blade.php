@@ -3,6 +3,7 @@
 @section('content')
 
 <div class = "container">
+    @if(Auth::ID())
   @switch(Auth::user()->permission)
     @case(1)
         <a href="createevent" class="btnevent" role="button">Proposer une idée</a>
@@ -16,6 +17,7 @@
     @Default
         @break
   @endswitch
+    @endif
 </div>
 
 <div class="container"><h3>Idées proposés</h3></div>

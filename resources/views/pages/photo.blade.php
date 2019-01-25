@@ -10,5 +10,8 @@
 <hr>
     <p style="margin-left: 5px;">{{$comment->TXT}}</p>
 @endforeach
+
 </div>
+
+
 @endsection
