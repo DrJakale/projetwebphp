@@ -33,5 +33,5 @@ Route::get('event/{idevent}', 'PagesController@visuevent');
 Route::get('profile', 'PagesController@profile');
 Route::get('privacy', 'PagesController@privacy');
 Route::get('mescommandes', 'PagesController@mescommandes');
-Route::get('photo/{idphoto}', 'PagesController@photo');
+Route::get('event/photo/{idphoto}', 'PagesController@photo');
 Route::get('ventes', 'PagesController@ventes');
