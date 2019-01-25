@@ -9,9 +9,16 @@ use Auth;
 
 class PagesController extends Controller
 {
-     
+    //pages de navigation basiques
+    
     public function accueil(){
         return view('pages.accueil');
+    }
+    public function profile(){
+        return view('pages.profile');
+    }
+    public function privacy(){
+        return view('pages.privacy');
     }
 
     //pages ecommerce
@@ -43,6 +50,12 @@ class PagesController extends Controller
         return view('pages.catecom')->with(array('stock'=>$stock, 'categories'=>$categories));
     }
 
+    public function mescommandes(){
+        return view('pages.mescommandes');
+    }
+
+    
+    
    //pages event
 
     public function event(){
@@ -81,6 +94,10 @@ class PagesController extends Controller
 
     public function createevent(){
         return view('pages.createevent');
+    }
+    
+    public function photo($idphoto){
+        return view('pages.photo');
     }
 
 
