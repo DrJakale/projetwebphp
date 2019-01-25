@@ -21,7 +21,7 @@ class PagesController extends Controller
     public function privacy(){
         return view('pages.privacy');
     }
-    
+
     public function ventes(){
         return view('pages.ventes');
     }
@@ -32,9 +32,16 @@ class PagesController extends Controller
       $basket = DB::connection('mysql2')->table('orderindex')
             ->join('contains', 'orderindex.id', '=', 'contains.id')
             ->join('stock', 'contains.id_stock', '=', 'stock.id')
+            ->join('categories', 'stock.id', '=', 'categories.id')
             ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 0]])
+            ->select('stock.ID', 'Quantity', 'stock.IMG_URL', 'stock.Desc', 'stock.Name', 'stock.Price', 'categories.TITLE')
             ->get();
 
+            foreach($basket as $product){
+              if(strlen($product->Desc) > 100){
+                $product->Desc = substr($product->Desc, 0, 97) . '...';
+              }
+            }
         return view('pages.panier')->with(array('basket'=>$basket));
       }else{
         return view('auth.login');
@@ -67,6 +74,7 @@ class PagesController extends Controller
             ->join('contains', 'orderindex.id', '=', 'contains.id')
             ->join('stock', 'contains.id_stock', '=', 'stock.id')
             ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 1]])
+            ->select('ID_User', 'STATUS', 'Quantity', 'Price', 'Name', 'orderindex.ID', 'ID_Stock')
             ->get();
 
         return view('pages.mescommandes')->with(array('ordersindex'=>$ordersindex, 'orderscontent'=>$orderscontent));
@@ -123,10 +131,10 @@ class PagesController extends Controller
     }
 
     public function photo($idphoto){
-        
+
         $img = DB::connection('mysql2')->table('img')->where('ID','=', $idphoto)->get();
         $comment = DB::connection('mysql2')->table('comment')->where('ID_IMG','=', $idphoto)->get();
-        
+
         dump($img);
         dump($comment);
         return view('pages.photo')->with(array('img'=>$img, 'comment'=>$comment));

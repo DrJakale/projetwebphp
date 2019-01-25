@@ -18,8 +18,8 @@
   Siège social : 2 Rue Kellermann 59100 ROUBAIX</br>
   Siret : 42476141900045</br>
   RCS de ROUBAIX</br>
-  Tel 0 899 701 761 - Fax 03 20 20 09 58</br>
-  Mail support [at] ovh.com</p>
+  Tel: 0 899 701 761 - Fax 03 20 20 09 58</br>
+  <?php echo 'Mail: support@ovh.com' ?></p>
   <h2>Crédits :</h2>
   <p1>Concept et production :</p1>
   <p>Ce site internet a été réalisé par l'équipe de production en chef en utilisant la solution nos connaissances. .</p>

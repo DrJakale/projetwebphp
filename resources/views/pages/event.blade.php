@@ -2,9 +2,6 @@
 
 @section('content')
 
-<div class = "container">
-        <a href="createevent" class="btnevent" role="button">Créer évenement</a>
-</div>
 <div class="container"><h3>Évenements à venir</div>
 <div class="container" style="border:1px solid #cecece;">
 @foreach ($events as $event)

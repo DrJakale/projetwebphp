@@ -1,9 +1,8 @@
 @extends('layouts.header')
 
 @section('content')
-
-<div class = "container">
-    @if(Auth::ID())
+  @if(Auth::ID())
+  <div class = "container">
   @switch(Auth::user()->permission)
     @case(1)
         <a href="createevent" class="btnevent" role="button">Proposer une idée</a>
@@ -17,8 +16,9 @@
     @Default
         @break
   @endswitch
-    @endif
-</div>
+  </div>
+  @endif
+
 
 <div class="container"><h3>Idées proposés</h3></div>
   <div class="container" style="border:1px solid #cecece;">
