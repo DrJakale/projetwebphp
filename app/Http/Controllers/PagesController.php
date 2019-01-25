@@ -20,6 +20,10 @@ class PagesController extends Controller
     public function privacy(){
         return view('pages.privacy');
     }
+    
+    public function ventes(){
+        return view('pages.ventes');
+    }
 
     //pages ecommerce
     public function panier(){
