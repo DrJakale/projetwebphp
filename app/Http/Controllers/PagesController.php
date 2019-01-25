@@ -10,12 +10,13 @@ use Auth;
 class PagesController extends Controller
 {
     //pages de navigation basiques
-    
+
     public function accueil(){
         return view('pages.accueil');
     }
-    public function profile(){
-        return view('pages.profile');
+    public function profil(){
+
+        return view('pages.profil');
     }
     public function privacy(){
         return view('pages.privacy');
@@ -55,11 +56,27 @@ class PagesController extends Controller
     }
 
     public function mescommandes(){
-        return view('pages.mescommandes');
+      if(Auth::id()){
+
+      $ordersindex = DB::connection('mysql2')->table('orderindex')
+            ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 1]])
+            ->orderBy('ID', 'DESC')
+            ->get();
+
+      $orderscontent = DB::connection('mysql2')->table('orderindex')
+            ->join('contains', 'orderindex.id', '=', 'contains.id')
+            ->join('stock', 'contains.id_stock', '=', 'stock.id')
+            ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 1]])
+            ->get();
+
+        return view('pages.mescommandes')->with(array('ordersindex'=>$ordersindex, 'orderscontent'=>$orderscontent));
+      }else{
+        return view('auth.login');
+      }
     }
 
-    
-    
+
+
    //pages event
 
     public function event(){
@@ -104,7 +121,7 @@ class PagesController extends Controller
     public function createevent(){
         return view('pages.createevent');
     }
-    
+
     public function photo($idphoto){
         
         $img = DB::connection('mysql2')->table('img')->where('ID','=', $idphoto)->get();
