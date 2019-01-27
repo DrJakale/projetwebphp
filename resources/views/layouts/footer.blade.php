@@ -1,4 +1,4 @@
-        <footer>
+        <footer class="footer">
             <div class="footer-left">
                 <a class="vertical-logo-container" href="https://ecole-ingenieurs.cesi.fr">
                     <img class="vertical-logo" src="{{ asset('images/oui.png') }}">
@@ -6,7 +6,7 @@
             </div>
             <div class="footer-right">
                 <ul class="social-nav">
-                    <li>Follow Us</li>
+                    <li>Suivez nous sur nos différents réseaux sociaux</li>
                     <li class="icon-bubble"><a href="https://www.facebook.com/BdeExiaStrasbourg/" target="_blank"><i class="fa fa-facebook"></i></a></li>
                     <li class="icon-bubble"><a href="https://twitter.com/BdeExiaStrg" target="_blank"><i class="fa fa-twitter"></i></a></li>
                 </ul>
