@@ -34,5 +34,5 @@ Route::get('profil', 'PagesController@profil');
 Route::get('privacy', 'PagesController@privacy');
 Route::get('mescommandes', 'PagesController@mescommandes');
 Route::get('event/photo/{idphoto}', 'PagesController@photo');
-Route::post('event/photo/{idphoto}', 'PagesController@storecomment');
+Route::post('comment/{idphoto}/{idauthor}', 'PagesController@storecomment');
 Route::get('ventes', 'PagesController@ventes');

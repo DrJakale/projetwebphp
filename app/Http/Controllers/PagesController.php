@@ -130,27 +130,45 @@ class PagesController extends Controller
         return view('pages.createevent');
     }
 
+    public function getCommentaryAuthor($idauthor){
+
+      $json = json_decode(file_get_contents("http://chabanvpn.ovh:8080/api/users/" . $idauthor), true);
+      $res = (array) $json;
+
+      foreach($res as $res){
+        $id = $res['prenom'] . ' ' . $res['nom'];
+      }
+      return $id;
+    }
+
     public function photo($idphoto){
 
-        $img = DB::connection('mysql2')->table('img')->where('ID','=', $idphoto)->get();
-        $comment = DB::connection('mysql2')->table('comment')->where('ID_IMG','=', $idphoto)->get();
+        $img = DB::connection('mysql2')->table('img')->where('ID','=', $idphoto)->first();
+        $comments = DB::connection('mysql2')->table('comment')->where('ID_IMG','=', $idphoto)->get();
 
-        dump($img);
+        foreach ($comments as $comment) {
+          $comment->AuthorName = PagesController::getCommentaryAuthor($comment->ID_User);
+        }
+
         dump($comment);
-        return view('pages.photo')->with(array('img'=>$img, 'comment'=>$comment));
+        return view('pages.photo')->with(array('comments'=>$comments, 'img'=>$img));
     }
-    
-    public function storecomment($idphoto){
-        //Connection à la bdd en eloquent
+
+    public function storecomment(Request $request, $idphoto, $idauthor){
+
+        DB::connection('mysql2')->table('comment')->insert(
+          ['ID_User' => $idauthor, 'ID_IMG' => $idphoto, 'TXT' => $request->input('comment')]
+        );
+        /*//Connection à la bdd en eloquent
         $commentModel = new commentModel;
         $commentModel->setConnection('mysql2');
-        
+
         //Début tuto laravel
         $commentModel->comment = request('comment');
-        
-            $project->save();
-        
-        return redirect('event/photo/{idphoto}');
+
+            $project->save();*/
+
+        return redirect("/event/photo/" . $idphoto);
     }
 
 }
