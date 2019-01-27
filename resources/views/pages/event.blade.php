@@ -34,10 +34,10 @@
                     <h3>{{$event->TITLE}}</h3>
                 </div>
             </div>
-    
-    @endif
-    @endforeach
-    </div>
+        </div>
+    </a>
+@endif
+@endforeach
 </div>
 
 <div class="container"><h3>Évenements passés</div>
@@ -55,11 +55,11 @@
                 </div>
             </div>
         </div>
-    @endif
-    @endforeach
     </div>
+@endif
+@endforeach
 </div>
-</div>
+
 
 @endsection
 

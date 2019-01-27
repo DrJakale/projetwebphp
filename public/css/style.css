@@ -1,8 +1,4 @@
-.bkg{
-  
 
-  background-color: #0f0e0e;
-}
 
 /*  Navbar */
 .btn-outline-success{
@@ -200,64 +196,15 @@ text-align: center;
 }
 /* Login */
 
-.login{
-
-  margin-top: 150px;
-  margin-bottom: 150px;
-  background-color: #0f0e0e;
-  overflow: auto;
-}
 
 
 
-/*Event*/
-.event{
 
-  background-color: #0f0e0e;
-  padding: 50px;
-  
-}
 
-.event-tittle{
-  color: #fff;
-}
-.event-case{
-  background-color: white;
-  
-  border: black;
-  border-radius: 10px;
 
-}
-.img-event{
-
-  margin: 15px;
-
-}
-.event-txt{
-  color: black;
-
-}
-.incom-event{
-  padding: 30px;
-}
-.past-event{
-  padding: 30px;
-}
-.article-txt{
-
-    padding: 15px;
-    color: black;
-
-}
 
 
 /*Footer*/
-.footer{
-
-  position: aboslute;
-  bottom: 10px;
-
-}
 
 #mainFooter {
   background:#fff;padding:2.2em;display:flex;align-items:center;z-index:8000;flex:none;
