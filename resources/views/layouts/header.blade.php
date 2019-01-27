@@ -52,7 +52,7 @@
             <li class="nav-item {{ Request::segment(1) === NULL ? 'active active-header' : null }} {{ Request::segment(1) === 'accueil' ? 'active active-header' : null }} {{ Request::segment(1) === '' ? 'active active-header' : null }}">
                 <a class="nav-link" href="{{ url('/accueil') }}">Accueil</a>
             </li>
-            <li class="nav-item {{ Request::segment(1) === 'event' ? 'active active-header' : null }}">
+            <li class="nav-item {{ Request::segment(1) === 'event' ? 'active active-header' : null }} {{ Request::segment(1) === 'photo' ? 'active active-header' : null }}">
                 <a class="nav-link" href="{{ url('/event') }}">Event</a>
             </li>
             <li class="nav-item {{ Request::segment(1) === 'boiteaidees' ? 'active active-header' : null }}">
@@ -74,11 +74,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item {{ Request::segment(1) === 'login' ? 'active active-header' : null }}">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Se connecter') }}</a>
+                                <a class="nav-link" href="{{ url('/login') }}">{{ __('Se connecter') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item {{ Request::segment(1) === 'register' ? 'active active-header' : null }}">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __("S'enregistrer") }}</a>
+                                    <a class="nav-link" href="{{ url('/register') }}">{{ __("S'enregistrer") }}</a>
                                 </li>
                             @endif
                         @else
@@ -88,10 +88,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="profil">
+                                    <a class="dropdown-item" href="{{ url('/profil') }}">
                                       {{ __('Mon profil') }}
                                     </a>
-                                    <a class="dropdown-item" href="mescommandes">
+                                    <a class="dropdown-item" href="{{ url('/mescommandes') }}">
                                       {{ __('Mes commandes') }}
                                     </a>
                                     <div class="dropdown-divider"></div>

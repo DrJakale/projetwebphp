@@ -120,14 +120,26 @@ class PagesController extends Controller
         $events = DB::connection('mysql2')->table('events')->join('img','ID_Events','=','Events.ID')->where('ID_Events','=', $idevent)->get();
         //$img = DB::connection('mysql2')->table('img')->join('events','ID','=','img.ID_Events')->get();
 
-        dump($events);
-        return view('pages.visuevent')->with(array('events'=>$events/*'img'=>$img*/));
+      return view('pages.visuevent')->with(array('events'=>$events))->with('idevent', $idevent/*'img'=>$img*/);
     }
 
 
 
     public function createevent(){
         return view('pages.createevent');
+    }
+
+    public function switchreportevent(Request $request){
+
+        $event = DB::connection('mysql2')->table('events')->where('ID','=', $request->input('idevent'))->first();
+
+        if($event->Reported_Event == 0){
+          DB::connection('mysql2')->table('events')->where('id', $request->input('idevent'))->update(array('Reported_Event' => 1));
+        }else{
+          DB::connection('mysql2')->table('events')->where('id', $request->input('idevent'))->update(array('Reported_Event' => 0));
+        }
+
+        return redirect()->action('PagesController@visuevent', ['idevent' => $request->input('idevent')]);;
     }
 
     public function getCommentaryAuthor($idauthor){
@@ -150,14 +162,13 @@ class PagesController extends Controller
           $comment->AuthorName = PagesController::getCommentaryAuthor($comment->ID_User);
         }
 
-        dump($comment);
         return view('pages.photo')->with(array('comments'=>$comments, 'img'=>$img));
     }
 
-    public function storecomment(Request $request, $idphoto, $idauthor){
+    public function storecomment(Request $request, $idphoto){
 
         DB::connection('mysql2')->table('comment')->insert(
-          ['ID_User' => $idauthor, 'ID_IMG' => $idphoto, 'TXT' => $request->input('comment')]
+          ['ID_User' =>  $request->input('author'), 'ID_IMG' => $idphoto, 'TXT' => $request->input('comment')]
         );
         /*//Connection à la bdd en eloquent
         $commentModel = new commentModel;
@@ -168,7 +179,13 @@ class PagesController extends Controller
 
             $project->save();*/
 
-        return redirect("/event/photo/" . $idphoto);
+        return redirect()->action('PagesController@photo', ['idphoto' => $idphoto]);;
     }
 
+    public function deletecomment(Request $request){
+
+        DB::connection('mysql2')->table('comment')->where('ID', '=', $request->input('commentid'))->delete();
+
+        return redirect()->action('PagesController@photo', ['idphoto' => $request->input('idphoto')]);
+    }
 }

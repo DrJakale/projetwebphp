@@ -1,21 +1,31 @@
 @extends('layouts.header')
 @section('content')
 
+@if(Auth::ID() && Auth::User()->permission == 3)
+<div class="container">
+    <form method="post" action="/event/{{$idevent}}/report" >
+      @csrf
+      <input type="hidden" name="idevent" value="{{$idevent}}">
+      <input type="submit" class="btn btn-xs btn-danger" value="{{ $events[0]->Reported_Event == 0 ? 'Signaler' : 'Annuler le signalement' }}">
+    </form>
+</div>
+@endif
 
-<div class = "container">  
+
+<div class = "container">
     <div col-sm-6>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     @foreach ($events as $event)
       @if($event->Thumbnail == 1)
       <div class="carousel-item active">
-      <a href="photo/{{$event->ID}}">
+      <a href="/photo/{{$event->ID}}">
       <img class = "img-fluid mx-auto d-block" src="{{$event->URL}}">
       </a>
     </div>
       @else
     <div class="carousel-item">
-      <a href="photo/{{$event->ID}}">
+      <a href="/photo/{{$event->ID}}">
       <img src="{{$event->URL}}" class = "mx-auto d-block img-fluid">
       </a>
     </div>
@@ -34,6 +44,7 @@
   </a>
 </div>
 </div>
+@endforeach
     <div class="col-sm-6">
            <div class="wrapper">
                 <div class="caption post-content">
@@ -43,7 +54,5 @@
                 </div>
             </div>
         </div>
-    @endforeach
 </div>
 @endsection
-

@@ -7,6 +7,18 @@
           <h4>Nom: </h4><h5>{{ Auth::user()->nom }}</h5>
           <h4>Prénom: </h4><h5>{{ Auth::user()->prenom }}</h5>
           <h4>Adresse Courriel: </h4><h5>{{ Auth::user()->email }}</h5>
+          <h4>Status: </h4>
+          @switch(Auth::user()->permission)
+          @case(1)
+          <h5>Étudiant</h5>
+          @break
+          @case(2)
+          <h5>Membre du BDE</h5>
+          @break
+          @case(3)
+          <h5>Salarié CESI</h5>
+          @break
+          @endswitch
         <div class="row">
         </div>
     </div>
