@@ -194,7 +194,46 @@ text-align: center;
   height:500px;
 
 }
-/* Login */
+/*Event*/
+.event{
+
+  background-color: #0f0e0e;
+  padding: 50px;
+  
+}
+
+.event-tittle{
+  color: #fff;
+}
+.event-case{
+  background-color: white;
+  padding: 30px;
+  border: black;
+  border-radius: 10px;
+
+}
+.img-event{
+
+  margin: 15px;
+
+}
+.event-txt{
+  color: black;
+
+}
+.incom-event{
+  padding: 30px;
+}
+.past-event{
+  padding: 30px;
+}
+.article-txt{
+
+    padding: 15px;
+    color: black;
+
+}
+
 
 
 
