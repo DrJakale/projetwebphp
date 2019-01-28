@@ -33,7 +33,6 @@
     @endif
     @endforeach
 
-@foreach ($events as $event)
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
@@ -44,13 +43,12 @@
   </a>
 </div>
 </div>
-@endforeach
     <div class="col-sm-6">
            <div class="wrapper">
                 <div class="caption post-content">
-                    <h3>{{$event->TITLE}}</h3>
-                    <h5>{{$event->Event_Date}}</h5>
-                    <p>{{$event->TXT}}</p>
+                    <h3>{{$events[0]->TITLE}}</h3>
+                    <h5>{{$events[0]->Event_Date}}</h5>
+                    <p>{{$events[0]->TXT}}</p>
                 </div>
             </div>
         </div>

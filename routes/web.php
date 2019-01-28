@@ -36,6 +36,11 @@ Route::get('profil', 'PagesController@profil');
 Route::get('privacy', 'PagesController@privacy');
 Route::get('mescommandes', 'PagesController@mescommandes');
 Route::get('photo/{idphoto}', 'PagesController@photo');
+Route::get('ventes', 'PagesController@ventes');
+
+//Route commentaire
 Route::post('photo/{idphoto}/publishcommentary', 'PagesController@storecomment');
 Route::post('photo/{idphoto}/deletecommentary', 'PagesController@deletecomment');
-Route::get('ventes', 'PagesController@ventes');
+
+//Route recherches ecommerce
+Route::any('/search', 'PagesController@search');
