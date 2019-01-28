@@ -28,6 +28,7 @@ Route::get('accueil', 'PagesController@accueil');
 Route::get('event', 'PagesController@event');
 Route::get('createevent', 'PagesController@createevent');
 Route::get('ecom', 'PagesController@ecom');
+Route::post('ecom', 'PagesController@panieradd');
 Route::get('panier', 'PagesController@panier');
 Route::post('panier', 'PagesController@paniermaj');
 Route::get('cat/{idcat}', 'PagesController@catecom');

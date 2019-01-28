@@ -31,7 +31,11 @@
 <div class="container" style="border:1px solid #cecece;">
     <h3>Liste des produits</h3>
   @foreach ($stock as $produit)
+    <form method="post" action="ecom">
+      @csrf
     <div class="col-sm-4">
+        <input type="hidden" name="stockid" value="{{$produit->ID}}"/>
+        <input type="hidden" name="userid" value="{{Auth::ID()}}"/>
         <img src="{{$produit->IMG_URL}}" alt="..." height="180" width="320"/>
            <div class="wrapper">
                 <div class="caption post-content col-sm-6">
@@ -39,12 +43,14 @@
                     <p>{{$produit->Desc}}</p>
                 </div>
                <div class="caption post-content col-sm-6">
-                    <h3>{{$produit->Price}}FRF</h3>
-                   <button type="button" class="btn btn-primary btn-xs">Ajouter au panier</button>
+                    <h4><strong>{{number_format($produit->Price,2)}} FRF</strong></h4>
+                    @if(Auth::ID())
+                    <input type="submit" class="btnrefresh" style="margin-top: 5px; margin-right: 5px;" value="Ajouter au panier"/>
+                    @endif
                </div>
             </div>
         </div>
+      </form>
     @endforeach
 </div>
 @endsection
-

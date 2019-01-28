@@ -32,7 +32,6 @@ class PagesController extends Controller
       $basket = DB::connection('mysql2')->table('orderindex')
             ->join('contains', 'orderindex.id', '=', 'contains.id')
             ->join('stock', 'contains.id_stock', '=', 'stock.id')
-            ->join('categories', 'stock.id', '=', 'categories.id')
             ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 0]])
             ->select('stock.ID', 'Quantity', 'stock.IMG_URL', 'stock.Desc', 'stock.Name', 'stock.Price')
             ->get();
@@ -56,20 +55,48 @@ class PagesController extends Controller
 
             $basket->orderid = $orderid;
 
+        dump($basket);
         return view('pages.panier')->with(array('basket'=>$basket));
       }else{
         return view('auth.login');
       }
     }
 
-    public function paniermaj(Request $request){
-      if(null !== $request->input('order')){
-          DB::connection('mysql2')->table('orderindex')->where('id', $request->input('orderid'))->update(array('STATUS' => 1, 'Date' => date('Y-m-d')));
+    public function panieradd(Request $request){
+
+      //Vérification d'un panier pré-existant
+      $panier = DB::connection('mysql2')->table('orderindex')->where('ID_User', '=', $request->input('userid'))->where('STATUS', '=', 0)->first();
+
+      if($panier == null){
+        //Sinon création d'un panier
+        DB::connection('mysql2')->table('orderindex')->insert(['ID_User' =>  $request->input('userid'), 'STATUS' => 0]);
+        //Obtention du panier
+        $panier = DB::connection('mysql2')->table('orderindex')->where('ID_User', '=', $request->input('userid'))->where('STATUS', '=', 0)->first();
+      }
+
+      //Vérification du produit dans le panier
+      $produit = DB::connection('mysql2')->table('contains')->where('ID', '=', $panier->ID)->where('ID_Stock', '=', $request->input('stockid'))->first();
+
+      if($produit == null){
+        //Sinon insertion du produit
+        DB::connection('mysql2')->table('contains')->insert(['ID' => $panier->ID, 'ID_Stock' =>  $request->input('stockid'), 'Quantity' => 1]);
       }else{
+        //Modification de la quantité
+        $produit= DB::connection('mysql2')->table('contains')->where('ID', '=', $panier->ID)->where('ID_Stock', '=', $request->input('stockid'))->first();
+        DB::connection('mysql2')->table('contains')->where('ID', '=', $panier->ID)->where('ID_Stock', '=', $request->input('stockid'))->update(array('Quantity' => ($produit->Quantity + 1)));
+      }
+
+        return redirect()->action('PagesController@ecom');
+    }
+
+    public function paniermaj(Request $request){
+
         $array = array_values((array)$request->input());
+
         for($i = 1; $i < (count($array)-2); $i+=2){
           $input[$array[$i]] = $array[$i+1];
         }
+
         foreach($input as $product => $quantity){
           if($quantity > 0){
             DB::connection('mysql2')->table('contains')->where('ID', $request->input('orderid'))->where('ID_Stock', '=',  $product)->update(array('Quantity' => $quantity));
@@ -77,9 +104,12 @@ class PagesController extends Controller
             DB::connection('mysql2')->table('contains')->where('ID', $request->input('orderid'))->where('ID_Stock', '=',  $product)->delete();
           }
         }
-      }
+
+        if(null !== $request->input('order')){
+            DB::connection('mysql2')->table('orderindex')->where('id', $request->input('orderid'))->update(array('STATUS' => 1, 'Date' => date('Y-m-d')));
+        }
         return redirect()->action('PagesController@panier');
-    }
+      }
 
     public function ecom(){
         $stock = DB::connection('mysql2')->table('stock')->get();
@@ -116,13 +146,13 @@ class PagesController extends Controller
       }
     }
     public function search(Request $recherche){
-        
+
         $rechercheprod = DB::connection('mysql2')->table('stock')
                   ->where('stock.Name', 'LIKE', '%'.$recherche->input('recherche').'%')
                   ->get();
         dump($rechercheprod);
         return view('pages.rechercheecom')->with(array('rechercheprod'=>$rechercheprod));
-    } 
+    }
 
 
 
