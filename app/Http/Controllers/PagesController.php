@@ -85,7 +85,7 @@ class PagesController extends Controller
     public function search(Request $recherche){
         
         $rechercheprod = DB::connection('mysql2')->table('stock')
-                  ->where('stock.Name', 'LIKE', $recherche->input('recherche').'%')
+                  ->where('stock.Name', 'LIKE', '%'.$recherche->input('recherche').'%')
                   ->get();
         dump($rechercheprod);
         return view('pages.rechercheecom')->with(array('rechercheprod'=>$rechercheprod));
