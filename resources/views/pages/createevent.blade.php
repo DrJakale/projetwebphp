@@ -34,6 +34,7 @@
                                         <strong>{{ $errors->first('prenom') }}</strong>
                                     </span>
                                 @endif
+                                
                             </div>
                         </div>
                         <div class="form-group row">
@@ -50,6 +51,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

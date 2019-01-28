@@ -2,6 +2,8 @@
 
 @section('content')
 <div class="fond">
+  <form method="post" action="panier">
+    @csrf
     <div class="container panier"><h3>Panier</h3></div>
     <div class="container" style="border:1px solid #cecece;">
       @if(!$basket->isEmpty())
@@ -17,17 +19,19 @@
                     <p>{{$produit->Desc}}</p>
                 </div>
                 <h3 class=" col-md-4">{{$produit->Price}} FRF</h3>
-                <input type="number" name="quantity_{{$produit->ID}}" value="{{$produit->Quantity}}" min="1" max="100"/>
+                <input type="hidden" name="stockid_{{$produit->ID}}" value="{{$produit->ID}}">
+                <input type="number" name="quantity_{{$produit->ID}}" value="{{$produit->Quantity}}" min="0" max="100"/>
             </div>
         </div>
     </div>
-    <hr width="100%" size="8" align="center">
+    <!--<hr width="100%" size="8" align="center">-->
     @endforeach
-</div>
-</form>
+  </div>
 <div class="container">
-    <a href="createevent" class="btncommander" style=" float: right; margin-top: 5px;" role="button">{{ __('Commander') }}</a>
-    <a href="createevent" class="btnrefresh" style=" float: right; margin-top: 5px; margin-right: 5px;" role="button">{{ __('Mettre à jour le panier') }}</a>
+    <input type="hidden" name="orderid" value="{{$basket->orderid->ID}}">
+    <input type="submit" class="btncommander" style=" float: right; margin-top: 5px;" value="Commander" name="order">
+    <input type="submit" class="btnrefresh" style=" float: right; margin-top: 5px; margin-right: 5px;" role="button" value="Mettre à jour le panier" name="refresh"/>
+    <h3 style=" float: left; margin-top: 5px;">Total: {{number_format($basket->total,2)}} FRF</h3>
 </div>
 @else
 <div class="container" style="border:1px solid #cecece;">
@@ -36,6 +40,7 @@
   </div>
 </div>
 @endif
+</form>
 </div>
 </div>
 

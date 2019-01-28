@@ -34,18 +34,51 @@ class PagesController extends Controller
             ->join('stock', 'contains.id_stock', '=', 'stock.id')
             ->join('categories', 'stock.id', '=', 'categories.id')
             ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 0]])
-            ->select('stock.ID', 'Quantity', 'stock.IMG_URL', 'stock.Desc', 'stock.Name', 'stock.Price', 'categories.TITLE')
+            ->select('stock.ID', 'Quantity', 'stock.IMG_URL', 'stock.Desc', 'stock.Name', 'stock.Price')
             ->get();
+
+      $orderid = DB::connection('mysql2')->table('orderindex')
+            ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 0]])
+            ->select('orderindex.ID')
+            ->first();
 
             foreach($basket as $product){
               if(strlen($product->Desc) > 100){
                 $product->Desc = substr($product->Desc, 0, 97) . '...';
               }
             }
+
+            $basket->total = 0;
+
+            foreach($basket as $ordercontent){
+                $basket->total += $ordercontent->Quantity * $ordercontent->Price;
+            }
+
+            $basket->orderid = $orderid;
+
         return view('pages.panier')->with(array('basket'=>$basket));
       }else{
         return view('auth.login');
       }
+    }
+
+    public function paniermaj(Request $request){
+      if(null !== $request->input('order')){
+          DB::connection('mysql2')->table('orderindex')->where('id', $request->input('orderid'))->update(array('STATUS' => 1, 'Date' => date('Y-m-d')));
+      }else{
+        $array = array_values((array)$request->input());
+        for($i = 1; $i < (count($array)-2); $i+=2){
+          $input[$array[$i]] = $array[$i+1];
+        }
+        foreach($input as $product => $quantity){
+          if($quantity > 0){
+            DB::connection('mysql2')->table('contains')->where('ID', $request->input('orderid'))->where('ID_Stock', '=',  $product)->update(array('Quantity' => $quantity));
+          }else{
+            DB::connection('mysql2')->table('contains')->where('ID', $request->input('orderid'))->where('ID_Stock', '=',  $product)->delete();
+          }
+        }
+      }
+        return redirect()->action('PagesController@panier');
     }
 
     public function ecom(){
