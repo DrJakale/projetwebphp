@@ -12,23 +12,48 @@
         </span>
     </div>
 </form>
-<div class="container" style="border:1px solid #cecece;">
+<div class="container" >
     <h3>Liste des catégories</h3>
-  @foreach ($categories as $categories)
-    <div class="col-sm-4" href="cat/{{$categories->ID}}">
-        <img src="{{$categories->IMG_URL}}" alt="..." height="180" width="320"/>
+  @foreach ($categories as $category)
+    <div class="col-sm-4" href="cat/{{$category->ID}}">
+        <img src="{{$category->IMG_URL}}" alt="..." height="180" width="320"/>
            <div class="wrapper">
                 <div class="caption post-content col-sm-6">
-                    <a href="cat/{{$categories->ID}}">
-                    <h3>{{$categories->TITLE}}</h3>
+                    <a href="cat/{{$category->ID}}">
+                    <h3>{{$category->TITLE}}</h3>
                     </a>
                 </div>
             </div>
         </div>
     @endforeach
 </div>
-
-<div class="container" style="border:1px solid #cecece;">
+<div class="container" >
+    <h3>Top des ventes</h3>
+  @foreach ($topvente as $test)
+  <form method="post" action="ecom">
+        @csrf
+        <div class="col-sm-4">
+            <input type="hidden" name="stockid" value="{{$test->ID_Stock}}"/>
+            <input type="hidden" name="userid" value="{{Auth::ID()}}"/>
+            <img src="{{$test->IMG_URL}}" alt="..." height="180" width="320"/>
+            <div class="wrapper">
+                    <div class="caption post-content col-sm-6">
+                        <h3>{{$test->Name}}</h3>
+                        <p>{{$test->Desc}}</p>
+                    </div>
+                <div class="caption post-content col-sm-6">
+                        <h4><strong>{{number_format($test->Price,2)}} FRF</strong></h4>
+                        @if(Auth::ID())
+                        <input type="submit" class="btnrefresh" style="margin-top: 5px; margin-right: 5px;" value="Ajouter au panier"/>
+                        @endif
+                </div>
+                </div>
+            </div>
+        </form>
+       
+    @endforeach
+</div>
+<div class="container com-case">
     <h3>Liste des produits</h3>
   @foreach ($stock as $produit)
     <form method="post" action="ecom">
@@ -52,5 +77,8 @@
         </div>
       </form>
     @endforeach
+</div>
+
+
 </div>
 @endsection

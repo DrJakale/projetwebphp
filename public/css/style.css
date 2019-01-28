@@ -207,13 +207,12 @@ text-align: center;
 }
 .event-case{
   background-color: white;
-  padding: 30px;
+  padding: 20px;
   border: black;
   border-radius: 10px;
 
 }
-.img-event{
-
+.textevent{
   margin: 15px;
 
 }
@@ -234,8 +233,19 @@ text-align: center;
 
 }
 
+/* ECOMERCE */
 
+.ecom{
+  background-color: #0f0e0e;
+  padding: 30px;
+}
 
+.com-case{
+  background-color: white;
+  padding: 20px;
+  border: black;
+  border-radius: 10px;
+}
 
 
 

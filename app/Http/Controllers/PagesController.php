@@ -129,11 +129,16 @@ class PagesController extends Controller
         return redirect()->action('PagesController@panier');
       }
 
-    public function ecom(){
+      public function ecom(){
         $stock = DB::connection('mysql2')->table('stock')->get();
         $categories = DB::connection('mysql2')->table('categories')->get();
-
-        return view('pages.ecom')->with(array('stock'=>$stock, 'categories'=>$categories));
+        $topvente = DB::connection('mysql2')->table('contains')
+            ->select(DB::raw('ID_Stock, SUM(Quantity) as total, stock.Name, stock.IMG_URL, stock.Desc, stock.Price'))
+            ->groupBy('ID_Stock')
+            ->orderBy('total','Desc')
+            ->join('stock','stock.ID','=','contains.ID_Stock')
+            ->get();
+        return view('pages.ecom')->with(array('stock'=>$stock, 'categories'=>$categories, 'topvente'=>$topvente));
     }
 
     public function catecom($idcat){
@@ -233,6 +238,7 @@ class PagesController extends Controller
         return view('pages.rechercheecom')->with(array('rechercheprod'=>$rechercheprod));
     }
 
+    
 
 
    //pages event
