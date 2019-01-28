@@ -94,6 +94,15 @@
                                     <a class="dropdown-item" href="{{ url('/mescommandes') }}">
                                       {{ __('Mes commandes') }}
                                     </a>
+                                    @if(Auth::User()->permission == 2)
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ url('/orderlist') }}">
+                                      {{ __('Commandes Boutique') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ url('/createproduct') }}">
+                                      {{ __('Ajouter Produit') }}
+                                    </a>
+                                    @endif
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

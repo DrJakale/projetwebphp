@@ -27,6 +27,7 @@ Route::post('boiteaidees', 'PagesController@voteevent');
 Route::get('accueil', 'PagesController@accueil');
 Route::get('event', 'PagesController@event');
 Route::get('createevent', 'PagesController@createevent');
+Route::get('createproduct', 'PagesController@createproduct');
 Route::get('ecom', 'PagesController@ecom');
 Route::post('ecom', 'PagesController@panieradd');
 Route::get('panier', 'PagesController@panier');
@@ -37,7 +38,10 @@ Route::post('event/{idevent}/report', 'PagesController@switchreportevent');
 Route::get('profil', 'PagesController@profil');
 Route::get('privacy', 'PagesController@privacy');
 Route::get('mescommandes', 'PagesController@mescommandes');
+Route::get('orderlist', 'PagesController@orderlist');
+Route::post('orderlist', 'PagesController@finishorder');
 Route::get('photo/{idphoto}', 'PagesController@photo');
+Route::post('photo/{idphoto}', 'PagesController@votephoto');
 Route::get('ventes', 'PagesController@ventes');
 
 //Route commentaire

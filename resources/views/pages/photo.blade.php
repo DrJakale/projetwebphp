@@ -3,6 +3,37 @@
 
 <div class="container" style="border:1px solid #cecece; max-width: 40%;">
     <img style="margin-top: 10px; " class = "img-fluid mx-auto d-block" src="{{$img->URL}}">
+@if(Auth::ID())
+<?php
+$img->likestatus = 0;
+foreach($likes as $like){
+  if(Auth::ID() == $like->ID_User && $like->ID_IMG == $img->ID){
+    $img->likestatus = 1;
+  }
+}
+?>
+@if($img->likestatus == 1)
+<div class="marginright">
+<form method="post" action="{{$img->ID}}" >
+  @csrf
+  <input type="hidden" name="photoid" value="{{$img->ID}}">
+  <input type="hidden" name="userid" value="{{Auth::ID()}}">
+  <input type="hidden" name="likestatus" value="1">
+  <input type="submit" name="btnlike" value="J'aime plus" class="btn btn-sm btn-info"/>
+</form>
+</div>
+@else
+<div class="marginright">
+<form method="post" action="{{$img->ID}}" >
+  @csrf
+  <input type="hidden" name="photoid" value="{{$img->ID}}">
+  <input type="hidden" name="userid" value="{{Auth::ID()}}">
+  <input type="hidden" name="likestatus" value="0">
+  <input type="submit" name="btnlike" value="J'aime" class="btn btn-sm btn-primary"/>
+</form>
+</div>
+@endif
+@endif
 
 @foreach($comments as $comment)
 <hr>

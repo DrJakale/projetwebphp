@@ -9,6 +9,17 @@ use Auth;
 
 class PagesController extends Controller
 {
+  //API ID = Nom Prénom
+  public function getUserName($iduser){
+
+    $json = json_decode(file_get_contents("http://chabanvpn.ovh:8080/api/users/" . $iduser), true);
+    $res = (array) $json;
+
+    foreach($res as $res){
+      $id = $res['prenom'] . ' ' . $res['nom'];
+    }
+    return $id;
+  }
     //pages de navigation basiques
 
     public function accueil(){
@@ -24,6 +35,14 @@ class PagesController extends Controller
 
     public function ventes(){
         return view('pages.ventes');
+    }
+
+    public function createproduct(){
+      if(Auth::ID() && Auth::user()->permission == 2){
+        return view('pages.createproduct');
+      }else{
+        return view('auth.login');
+      }
     }
 
     //pages ecommerce
@@ -55,7 +74,6 @@ class PagesController extends Controller
 
             $basket->orderid = $orderid;
 
-        dump($basket);
         return view('pages.panier')->with(array('basket'=>$basket));
       }else{
         return view('auth.login');
@@ -128,23 +146,84 @@ class PagesController extends Controller
     public function mescommandes(){
       if(Auth::id()){
 
-      $ordersindex = DB::connection('mysql2')->table('orderindex')
-            ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 1]])
-            ->orderBy('ID', 'DESC')
-            ->get();
+        $currentordersindex = DB::connection('mysql2')->table('orderindex')
+              ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 1]])
+              ->orderBy('ID', 'DESC')
+              ->get();
 
-      $orderscontent = DB::connection('mysql2')->table('orderindex')
-            ->join('contains', 'orderindex.id', '=', 'contains.id')
-            ->join('stock', 'contains.id_stock', '=', 'stock.id')
-            ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 1]])
-            ->select('ID_User', 'STATUS', 'Quantity', 'Price', 'Name', 'orderindex.ID', 'ID_Stock')
-            ->get();
+        $currentorderscontent = DB::connection('mysql2')->table('orderindex')
+              ->join('contains', 'orderindex.id', '=', 'contains.id')
+              ->join('stock', 'contains.id_stock', '=', 'stock.id')
+              ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 1]])
+              ->select('ID_User', 'STATUS', 'Quantity', 'Price', 'Name', 'orderindex.ID', 'ID_Stock')
+              ->get();
 
-        return view('pages.mescommandes')->with(array('ordersindex'=>$ordersindex, 'orderscontent'=>$orderscontent));
+        $finishedordersindex = DB::connection('mysql2')->table('orderindex')
+              ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 2]])
+              ->orderBy('ID', 'DESC')
+              ->get();
+
+        $finishedorderscontent = DB::connection('mysql2')->table('orderindex')
+              ->join('contains', 'orderindex.id', '=', 'contains.id')
+              ->join('stock', 'contains.id_stock', '=', 'stock.id')
+              ->where([['orderindex.id_user', '=', Auth::user()->id],['STATUS', '=', 2]])
+              ->select('ID_User', 'STATUS', 'Quantity', 'Price', 'Name', 'orderindex.ID', 'ID_Stock')
+              ->get();
+
+        return view('pages.mescommandes')->with(array('currentordersindex'=>$currentordersindex, 'currentorderscontent'=>$currentorderscontent, 'finishedordersindex'=>$finishedordersindex, 'finishedorderscontent'=>$finishedorderscontent));
       }else{
         return view('auth.login');
       }
     }
+
+    public function orderlist(){
+      if(Auth::id()){
+
+      $currentordersindex = DB::connection('mysql2')->table('orderindex')
+            ->where([['STATUS', '=', 1]])
+            ->orderBy('ID', 'DESC')
+            ->get();
+
+      $currentorderscontent = DB::connection('mysql2')->table('orderindex')
+            ->join('contains', 'orderindex.id', '=', 'contains.id')
+            ->join('stock', 'contains.id_stock', '=', 'stock.id')
+            ->where([['STATUS', '=', 1]])
+            ->select('ID_User', 'STATUS', 'Quantity', 'Price', 'Name', 'orderindex.ID', 'ID_Stock')
+            ->get();
+
+      $finishedordersindex = DB::connection('mysql2')->table('orderindex')
+            ->where([['STATUS', '=', 2]])
+            ->orderBy('ID', 'DESC')
+            ->get();
+
+      $finishedorderscontent = DB::connection('mysql2')->table('orderindex')
+            ->join('contains', 'orderindex.id', '=', 'contains.id')
+            ->join('stock', 'contains.id_stock', '=', 'stock.id')
+            ->where([['STATUS', '=', 2]])
+            ->select('ID_User', 'STATUS', 'Quantity', 'Price', 'Name', 'orderindex.ID', 'ID_Stock')
+            ->get();
+
+            foreach ($currentordersindex as $element) {
+              $element->ClientName = PagesController::getUserName($element->ID_User);
+            }
+            foreach ($finishedordersindex as $element) {
+              $element->ClientName = PagesController::getUserName($element->ID_User);
+            }
+
+        return view('pages.orderlist')->with(array('currentordersindex'=>$currentordersindex, 'currentorderscontent'=>$currentorderscontent, 'finishedordersindex'=>$finishedordersindex, 'finishedorderscontent'=>$finishedorderscontent));
+      }else{
+        return view('auth.login');
+      }
+    }
+
+    public function finishorder(Request $request){
+
+    DB::connection('mysql2')->table('orderindex')->where('id', $request->input('orderid'))->update(array('STATUS' => 2));
+
+        return redirect()->action('PagesController@orderlist');
+    }
+
+
     public function search(Request $recherche){
 
         $rechercheprod = DB::connection('mysql2')->table('stock')
@@ -198,8 +277,6 @@ class PagesController extends Controller
           }
         }
 
-        //$events = array_multisort((array)$events);
-
         return view('pages.boiteaidees')->with(array('events'=>$events,'votes'=>$votes));
     }
 
@@ -242,27 +319,41 @@ class PagesController extends Controller
         return redirect()->action('PagesController@visuevent', ['idevent' => $request->input('idevent')]);;
     }
 
-    public function getCommentaryAuthor($idauthor){
-
-      $json = json_decode(file_get_contents("http://chabanvpn.ovh:8080/api/users/" . $idauthor), true);
-      $res = (array) $json;
-
-      foreach($res as $res){
-        $id = $res['prenom'] . ' ' . $res['nom'];
-      }
-      return $id;
-    }
-
     public function photo($idphoto){
 
         $img = DB::connection('mysql2')->table('img')->where('ID','=', $idphoto)->first();
         $comments = DB::connection('mysql2')->table('comment')->where('ID_IMG','=', $idphoto)->get();
 
         foreach ($comments as $comment) {
-          $comment->AuthorName = PagesController::getCommentaryAuthor($comment->ID_User);
+          $comment->AuthorName = PagesController::getUserName($comment->ID_User);
         }
 
-        return view('pages.photo')->with(array('comments'=>$comments, 'img'=>$img));
+        $likes = DB::connection('mysql2')
+        ->table('img')
+        ->join('likespicture', 'img.id', '=', 'likespicture.ID_IMG')
+        ->get();
+
+
+        foreach($likes as $like){
+          $like->likescount = 0;
+            if($like->ID_IMG == $like->ID){
+              $like->likescount++;
+            }
+        }
+
+
+        return view('pages.photo')->with(array('comments'=>$comments, 'img'=>$img, 'likes'=>$likes));
+    }
+
+    public function votephoto(Request $request){
+
+      if($request->input('likestatus') == 0){
+        DB::connection('mysql2')->table('likespicture')->insert(['ID_User' =>  $request->input('userid'), 'ID_IMG' => $request->input('photoid')]);
+      }else{
+        DB::connection('mysql2')->table('likespicture')->where('ID_User', '=', $request->input('userid'))->where('ID_IMG', '=',  $request->input('photoid'))->delete();
+      }
+
+      return redirect()->action('PagesController@photo', ['idphoto' => $request->input('photoid')]);
     }
 
     public function storecomment(Request $request, $idphoto){
