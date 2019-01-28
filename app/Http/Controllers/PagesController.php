@@ -118,8 +118,17 @@ class PagesController extends Controller
         ->join('voteevent', 'events.id', '=', 'voteevent.id_events')
         ->get();
 
-        dump($votes);
-        dump($events);
+        foreach($events as $event){
+          $event->votescount = 0;
+          foreach($votes as $vote){
+            if($vote->ID_Events == $event->ID){
+              $event->votescount++;
+            }
+          }
+        }
+
+        //$events = array_multisort((array)$events);
+
         return view('pages.boiteaidees')->with(array('events'=>$events,'votes'=>$votes));
     }
 

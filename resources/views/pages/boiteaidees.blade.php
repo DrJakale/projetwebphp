@@ -22,7 +22,7 @@
 @if(Auth::ID() && Auth::User()->permission >= 2)
   <div class="container"><h3>Idées signalées</h3></div>
     <div class="container" style="border:1px solid #cecece;">
-      @foreach ($events as $event)
+      @foreach($events as $event)
       @if($event->Type == 0 && $event->Reported_Event == 1)
      <a href="event/{{$event->ID_Events}}">
         <div class="container">
@@ -48,14 +48,6 @@
         <img class="baiimg" src="{{$event->URL}}" alt="..." height="180" width="320"/>
         <div class="baitxt">
           <h3>{{$event->TITLE}}</h3>
-          <?php
-            $event->votescount = 0;
-            foreach($votes as $vote){
-              if($vote->ID_Events == $event->ID){
-                $event->votescount++;
-              }
-            }
-          ?>
           <h4>Soutiens: {{$event->votescount}}</h4>
             @if(Auth::ID())
             <?php
