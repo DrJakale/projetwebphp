@@ -9,7 +9,7 @@
   <div>
     <div class="row">
       <div class="col-10"><h5 style="margin-left: 5px;"><strong>{{$comment->AuthorName}}</strong></h5></div>
-      @if($comment->ID_User == Auth::ID() || Auth::User()->permission == 2)
+      @if(Auth:ID() && ($comment->ID_User == Auth::ID() || Auth::User()->permission == 2))
         <div class="col-1">
           <form method="post" action="{{$img->ID}}/deletecommentary" >
             @csrf

@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Routes pour onglets du site
 Route::get('boiteaidees', 'PagesController@boiteaidees');
+Route::post('boiteaidees', 'PagesController@voteevent');
 Route::get('accueil', 'PagesController@accueil');
 Route::get('event', 'PagesController@event');
 Route::get('createevent', 'PagesController@createevent');

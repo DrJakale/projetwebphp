@@ -104,14 +104,34 @@ class PagesController extends Controller
         ->table('events')
         ->join('img', 'events.id', '=', 'img.id_events')
         ->where('Thumbnail', '=', 1)
+        ->select('events.ID','TXT','URL', 'Type', 'Reported_Event','ID_Events', 'TITLE')
         ->get();
 
         foreach($events as $event){
-          if(strlen($event->TXT) > 858){
-            $event->TXT = substr($event->TXT, 0, 855) . '...';
+          if(strlen($event->TXT) > 500){
+            $event->TXT = substr($event->TXT, 0, 497) . '...';
           }
         }
-        return view('pages.boiteaidees')->with(array('events'=>$events));
+
+        $votes = DB::connection('mysql2')
+        ->table('events')
+        ->join('voteevent', 'events.id', '=', 'voteevent.id_events')
+        ->get();
+
+        dump($votes);
+        dump($events);
+        return view('pages.boiteaidees')->with(array('events'=>$events,'votes'=>$votes));
+    }
+
+    public function voteevent(Request $request){
+
+      if($request->input('likestatus') == 0){
+        DB::connection('mysql2')->table('voteevent')->insert(['ID_User' =>  $request->input('userid'), 'ID_Events' => $request->input('eventid')]);
+      }else{
+        DB::connection('mysql2')->table('voteevent')->where('ID_User', '=', $request->input('userid'))->where('ID_Events', '=',  $request->input('eventid'))->delete();
+      }
+
+      return redirect()->action('PagesController@boiteaidees');
     }
 
     public function visuevent($idevent){
