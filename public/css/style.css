@@ -546,3 +546,16 @@ margin-top: 10px;
 text-align: center;
 
 }
+
+.marginbottom{
+margin-bottom: 10px;
+
+}
+
+.btnsignaler{
+
+float: left;
+margin-right: 5px;
+margin-bottom: 5px;
+
+}
