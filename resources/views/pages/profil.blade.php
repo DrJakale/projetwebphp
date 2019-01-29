@@ -17,6 +17,7 @@
           @break
           @case(3)
           <h5>Salarié CESI</h5>
+          <a href="{{ url('downloadpictures') }}" style=" float: right; margin-top: 5px; margin-right: 5px;" class="btnrefresh">Telecharger les photos</a>
           @break
           @endswitch
         <div class="row">

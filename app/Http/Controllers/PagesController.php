@@ -7,6 +7,7 @@ use DB;
 use View;
 use Auth;
 use Illuminate\Support\Facades\Mail;
+use nelexa\zip;
 
 use App\Mail\email;
 
@@ -43,6 +44,24 @@ class PagesController extends Controller
     public function importpicture($idevent){
       if(Auth::ID()){
         return view('pages.importpicture')->with('idevent', $idevent);
+      }else{
+        return view('auth.login');
+      }
+    }
+
+    public function exportpictures(){
+      if(Auth::ID() && Auth::User()->permission == 3){
+
+        $zipname = 'photositebde.zip';
+
+        $zipFile = new \PhpZip\ZipFile();
+
+        $zipFile
+        ->addDir('eventimage', 'images') // add files from the directory
+        ->saveAsFile($zipname) // save the archive to a file
+        ->close(); // close archive
+
+        return response()->download(public_path("{$zipname}"));
       }else{
         return view('auth.login');
       }
@@ -133,8 +152,8 @@ class PagesController extends Controller
 
     // Fonction Récuperation Mailing
 
-   
-    
+
+
 
 
     //pages ecommerce
@@ -165,7 +184,7 @@ class PagesController extends Controller
             }
 
             $basket->orderid = $orderid;
-             
+
 
         return view('pages.panier')->with(array('basket'=>$basket));
       }else{
@@ -560,6 +579,3 @@ class PagesController extends Controller
         return redirect()->action('PagesController@photo', ['idphoto' => $request->input('idphoto')]);
     }
 }
-
-
-
