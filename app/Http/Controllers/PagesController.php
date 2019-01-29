@@ -238,7 +238,7 @@ class PagesController extends Controller
         return view('pages.rechercheecom')->with(array('rechercheprod'=>$rechercheprod));
     }
 
-    
+
 
 
    //pages event
@@ -297,13 +297,37 @@ class PagesController extends Controller
       return redirect()->action('PagesController@boiteaidees');
     }
 
-    public function visuevent($idevent){
+    public function switchregisterevent(Request $request){
 
+      if($request->input('registerstatus') == 0){
+        DB::connection('mysql2')->table('register')->insert(['ID_User' =>  $request->input('userid'), 'ID_Event' => $request->input('eventid')]);
+      }else{
+        DB::connection('mysql2')->table('register')->where('ID_User', '=', $request->input('userid'))->where('ID_Event', '=',  $request->input('eventid'))->delete();
+      }
+
+      return redirect()->action('PagesController@visuevent', ['idevent' => $request->input('eventid')]);
+    }
+
+    public function visuevent($idevent){
 
         $events = DB::connection('mysql2')->table('events')->join('img','ID_Events','=','Events.ID')->where('ID_Events','=', $idevent)->get();
         //$img = DB::connection('mysql2')->table('img')->join('events','ID','=','img.ID_Events')->get();
 
-      return view('pages.visuevent')->with(array('events'=>$events))->with('idevent', $idevent/*'img'=>$img*/);
+        $registered = DB::connection('mysql2')
+        ->table('events')
+        ->join('register', 'events.ID', '=', 'register.ID_Event')
+        ->get();
+
+        $events->idevent = $idevent;
+
+        $events->registerstatus = 0;
+        foreach($registered as $reg){
+            if($reg->ID_User == Auth::ID()){
+              $events->registerstatus = 1;
+            }
+        }
+        
+      return view('pages.visuevent')->with(array('events'=>$events, 'registered'=>$registered))->with('idevent', $idevent);
     }
 
 
@@ -322,7 +346,7 @@ class PagesController extends Controller
           DB::connection('mysql2')->table('events')->where('id', $request->input('idevent'))->update(array('Reported_Event' => 0));
         }
 
-        return redirect()->action('PagesController@visuevent', ['idevent' => $request->input('idevent')]);;
+        return redirect()->action('PagesController@visuevent', ['idevent' => $request->input('idevent')]);
     }
 
     public function photo($idphoto){

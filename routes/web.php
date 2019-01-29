@@ -34,6 +34,7 @@ Route::get('panier', 'PagesController@panier');
 Route::post('panier', 'PagesController@paniermaj');
 Route::get('cat/{idcat}', 'PagesController@catecom');
 Route::get('event/{idevent}', 'PagesController@visuevent');
+Route::post('event/{idevent}', 'PagesController@switchregisterevent');
 Route::post('event/{idevent}/report', 'PagesController@switchreportevent');
 Route::get('profil', 'PagesController@profil');
 Route::get('privacy', 'PagesController@privacy');

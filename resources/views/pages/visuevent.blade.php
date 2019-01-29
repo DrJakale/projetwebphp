@@ -1,7 +1,8 @@
 @extends('layouts.header')
 @section('content')
 
-@if(Auth::ID() && Auth::User()->permission == 3)
+@if(Auth::ID())
+@if(Auth::User()->permission == 3)
 <div class="container">
     <form method="post" action="/event/{{$idevent}}/report" >
       @csrf
@@ -9,6 +10,28 @@
       <input type="submit" class="btn btn-xs btn-danger" value="{{ $events[0]->Reported_Event == 0 ? 'Signaler' : 'Annuler le signalement' }}">
     </form>
 </div>
+@endif
+@if($events->registerstatus == 1)
+<div class="marginright">
+<form method="post" action="/event/{{$idevent}}" >
+  @csrf
+  <input type="hidden" name="eventid" value="{{$events->idevent}}">
+  <input type="hidden" name="userid" value="{{Auth::ID()}}">
+  <input type="hidden" name="registerstatus" value="1">
+  <input type="submit" name="btnlike" value="Se désinscrire" class="btn btn-sm btn-warning"/>
+</form>
+</div>
+@else
+<div class="marginright">
+<form method="post" action="/event/{{$idevent}}" >
+  @csrf
+  <input type="hidden" name="eventid" value="{{$events->idevent}}">
+  <input type="hidden" name="userid" value="{{Auth::ID()}}">
+  <input type="hidden" name="registerstatus" value="0">
+  <input type="submit" name="btnlike" value="S'inscrire" class="btn btn-sm btn-success"/>
+</form>
+</div>
+@endif
 @endif
 
 
