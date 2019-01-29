@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-        
+
         @endif
         @endforeach
     </div>
@@ -30,14 +30,14 @@
             @if($event->Type == 1 && $event->Reported_Event == 0)
             <a class="textevent" href="event/{{$event->ID_Events}}">
                 <div class="col-sm-4">
-                    <img src="{{$event->URL}}" alt="..." height="180" width="320" class="img-event" /></a>
+                    <img src="{{ asset('eventimage') }}/{{$event->URL}}" alt="..." height="180" width="320" class="img-event" /></a>
                     <div class="wrapper">
                         <div class="caption post-content ">
                             <h3>{{$event->TITLE}}</h3>
                         </div>
                     </div>
                 </div>
-            
+
 
             @endif
             @endforeach
@@ -56,8 +56,8 @@
                         </div>
                     </div>
                 </div>
-                
-            
+
+
             @endif
             @endforeach
         </div>

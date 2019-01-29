@@ -22,10 +22,16 @@ Auth::routes();//Route pour login et register
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Routes pour onglets du site
+Route::get('importpicture/{idevent}', 'PagesController@importpicture');
+Route::post('importpicture/{idevent}', 'PagesController@actionimportpicture');
+Route::get('boiteaidees', 'PagesController@boiteaidees');
 Route::post('boiteaidees', 'PagesController@voteevent');
+Route::get('createcat', 'PagesController@createcat');
+Route::post('createcat', 'PagesController@actioncreatecat');
 Route::get('accueil', 'PagesController@accueil');
 Route::get('event', 'PagesController@event');
 Route::get('createevent', 'PagesController@createevent');
+Route::post('createevent', 'PagesController@actioncreateevent');
 Route::get('createproduct', 'PagesController@createproduct');
 Route::post('createproduct', 'PagesController@actioncreateproduct');
 Route::get('ecom', 'PagesController@ecom');

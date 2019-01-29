@@ -1,6 +1,7 @@
 @extends('layouts.header')
 @section('content')
 
+<div class="container"><h4>{{$events->AuthorName}}</h4></div>
 @if(Auth::ID())
 <div class="container">
 @if(Auth::User()->permission == 3)
@@ -23,12 +24,7 @@
   </form>
   @endif
   @if($events->registerstatus == 1 && $events[0]->Type == 2)
-  <form method="post" action="/event/{{$idevent}}" >
-    @csrf
-    <input type="hidden" name="eventid" value="{{$events->idevent}}">
-    <input type="hidden" name="userid" value="{{Auth::ID()}}">
-    <input type="submit" name="btnlike" value="Publier Image" class="btn btn-sm btn-info"/>
-  </form>
+    <a href="{{ url('importpicture') }}/{{$idevent}}" name="btn" class="btn btn-sm btn-info">Publier Image</a>
   @endif
 
   @if($events->registerstatus == 0 && $events[0]->Type == 1)
@@ -55,18 +51,18 @@
         @if($event->Thumbnail == 1)
         <div class="carousel-item active">
           <a href="/photo/{{$event->ID}}">
-            <img class = "img-fluid mx-auto d-block" src="{{$event->URL}}">
+            <img class = "img-fluid mx-auto d-block" src="{{ asset('eventimage') }}/{{$event->URL}}">
           </a>
         </div>
         @else
         <div class="carousel-item">
           <a href="/photo/{{$event->ID}}">
-            <img src="{{$event->URL}}" class = "mx-auto d-block img-fluid">
+            <img class="mx-auto d-block img-fluid" src="{{ asset('eventimage') }}/{{$event->URL}}">
           </a>
         </div>
-      </div>
       @endif
       @endforeach
+      </div>
 
       <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

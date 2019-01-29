@@ -2,7 +2,8 @@
 @section('content')
 
 <div class="container" style="border:1px solid #cecece; max-width: 40%;">
-  <img style="margin-top: 10px; " class = "img-fluid mx-auto d-block" src="{{$img->URL}}">
+  <h3>{{$img->AuthorName}}</h3>
+  <img style="margin-top: 10px; " class = "img-fluid mx-auto d-block" src="{{ asset('eventimage') }}/{{$img->URL}}">
   @if(Auth::ID())
   <?php
   $img->likestatus = 0;

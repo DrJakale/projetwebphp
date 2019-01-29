@@ -10,7 +10,7 @@
       @foreach ($basket as $produit)
       <div class="col-md-12" style="margin-top: 5px; margin-bottom: 5px;">
         <div class="col-md-4">
-            <img src="{{$produit->IMG_URL}}" alt="..." height="180" width="320"/>
+            <img src="{{ asset('illustrations') }}/{{$produit->IMG_URL}}" alt="..." height="180" width="320"/>
         </div>
         <div>
             <div class="caption post-content col-md-8">

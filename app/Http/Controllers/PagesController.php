@@ -12,7 +12,7 @@ class PagesController extends Controller
   //API ID = Nom Prénom
   public function getUserName($iduser){
 
-    $json = json_decode(file_get_contents("http://192.168.0.1:8080/api/users/" . $iduser), true);
+    $json = json_decode(file_get_contents("http://chabanvpn.ovh:8080/api/users/" . $iduser), true);
     $res = (array) $json;
 
     foreach($res as $res){
@@ -37,6 +37,61 @@ class PagesController extends Controller
         return view('pages.ventes');
     }
 
+    public function importpicture($idevent){
+      if(Auth::ID()){
+        return view('pages.importpicture')->with('idevent', $idevent);
+      }else{
+        return view('auth.login');
+      }
+    }
+
+    public function actionimportpicture(Request $request){
+      if(Auth::ID()){
+
+        $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
+        $name = 0;
+        if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/eventimage');
+                $image->move($destinationPath, $name);
+        }
+
+        DB::connection('mysql2')->table('img')->insert(['ID_Author' =>  $request->input('authorid'), 'URL' => $name, 'ID_Events' => $request->input('eventid'), 'Thumbnail' => 0]);
+
+        return redirect()->action('PagesController@visuevent', ['idevent' => $request->input('eventid')]);
+      }else{
+        return view('auth.login');
+      }
+    }
+
+    public function createcat(){
+        if(Auth::ID() && Auth::user()->permission == 2){
+          return view('pages.createcat');
+        }else{
+          return view('auth.login');
+        }
+    }
+
+    public function actioncreatecat(Request $request){
+      if(Auth::ID() && Auth::user()->permission == 2){
+
+        $availablecat = DB::connection('mysql2')->table('categories')
+              ->get();
+
+              foreach($availablecat as $cat){
+                if($request->input('title') == $cat->TITLE){
+                  return view('pages.createcat');
+                }
+              }
+
+                DB::connection('mysql2')->table('categories')->insert(['TITLE' =>  $request->input('title')]);
+                return view('pages.createcat');
+      }else{
+        return view('auth.login');
+      }
+    }
+
     public function createproduct(){
       if(Auth::ID() && Auth::user()->permission == 2){
 
@@ -52,7 +107,7 @@ class PagesController extends Controller
     public function actioncreateproduct(Request $request){
       if(Auth::ID() && Auth::user()->permission == 2){
 
-        //$this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
+        $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
         dump($request);
         $name = 0;
         if ($request->hasFile('image')) {
@@ -63,8 +118,6 @@ class PagesController extends Controller
         }
 
         DB::connection('mysql2')->table('stock')->insert(['Name' =>  $request->input('title'), 'IMG_URL' => $name, 'Desc' => $request->input('desc'), 'Price' => $request->input('price'), 'ID_Categories' => $request->input('cat')]);
-
-          /*TODO*/
 
         $availablecat = DB::connection('mysql2')->table('categories')
               ->get();
@@ -340,7 +393,11 @@ class PagesController extends Controller
 
     public function visuevent($idevent){
 
-        $events = DB::connection('mysql2')->table('events')->join('img','ID_Events','=','Events.ID')->where('ID_Events','=', $idevent)->get();
+        $events = DB::connection('mysql2')->table('events')
+        ->join('img','ID_Events','=','Events.ID')
+        ->where('ID_Events','=', $idevent)
+        ->select('img.ID', 'events.ID_Author', 'Event_Date', 'TXT', 'TITLE', 'Type', 'URL', 'ID_Events', 'Thumbnail')
+        ->get();
         //$img = DB::connection('mysql2')->table('img')->join('events','ID','=','img.ID_Events')->get();
 
         $registered = DB::connection('mysql2')
@@ -357,6 +414,7 @@ class PagesController extends Controller
             }
         }
 
+      $events->AuthorName = PagesController::getUserName($events[0]->ID_Author);
       dump($events);
       return view('pages.visuevent')->with(array('events'=>$events, 'registered'=>$registered))->with('idevent', $idevent);
     }
@@ -367,14 +425,50 @@ class PagesController extends Controller
         return view('pages.createevent');
     }
 
+    public function actioncreateevent(Request $request){
+      if(Auth::ID()){
+
+        $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
+        $name = 0;
+        if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/eventimage');
+                $image->move($destinationPath, $name);
+        }
+
+                DB::connection('mysql2')->table('events')->insert(['ID_Author' =>  Auth::ID(), 'TITLE' =>  $request->input('title'),
+                'TXT' => $request->input('desc'), 'Event_Date' => $request->input('date'), 'Type' => $request->input('type'), 'Recurrent' => $request->input('recurrent')]);
+
+          $ID =  DB::connection('mysql2')->table('events')
+                ->where('ID_Author','=',  Auth::ID())
+                ->where('TITLE','=',  $request->input('title'))
+                ->where('TXT','=', $request->input('desc'))
+                ->where('Event_Date','=', $request->input('date'))
+                ->where('Recurrent','=', $request->input('recurrent'))
+                ->select('events.ID')
+                ->first();
+
+        DB::connection('mysql2')->table('img')->insert(['ID_Author' =>  Auth::ID(), 'URL' => $name, 'ID_Events' => $ID->ID, 'Thumbnail' => 1]);
+
+          if(Auth::User()->permission == 2){
+                return action('PagesController@event');
+          }else{
+            return action('PagesController@boiteaidees');
+          }
+      }else{
+        return view('auth.login');
+      }
+    }
+
     public function switchreportevent(Request $request){
 
         $event = DB::connection('mysql2')->table('events')->where('ID','=', $request->input('idevent'))->first();
 
         if($event->Reported_Event == 0){
-          DB::connection('mysql2')->table('events')->where('id', $request->input('idevent'))->update(array('Reported_Event' => 1));
+          DB::connection('mysql2')->table('events')->where('id','=', $request->input('idevent'))->update(array('Reported_Event' => 1));
         }else{
-          DB::connection('mysql2')->table('events')->where('id', $request->input('idevent'))->update(array('Reported_Event' => 0));
+          DB::connection('mysql2')->table('events')->where('id','=', $request->input('idevent'))->update(array('Reported_Event' => 0));
         }
 
         return redirect()->action('PagesController@visuevent', ['idevent' => $request->input('idevent')]);
@@ -402,7 +496,8 @@ class PagesController extends Controller
             }
         }
 
-
+        $img->AuthorName = PagesController::getUserName($img->ID_Author);
+        dump($img);
         return view('pages.photo')->with(array('comments'=>$comments, 'img'=>$img, 'likes'=>$likes));
     }
 
