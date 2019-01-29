@@ -42,6 +42,7 @@ Route::get('cat/{idcat}', 'PagesController@catecom');
 Route::get('event/{idevent}', 'PagesController@visuevent');
 Route::post('event/{idevent}', 'PagesController@switchregisterevent');
 Route::post('event/{idevent}/report', 'PagesController@switchreportevent');
+Route::post('event/{idevent}/approve', 'PagesController@approveevent');
 Route::get('profil', 'PagesController@profil');
 Route::get('privacy', 'PagesController@privacy');
 Route::get('mescommandes', 'PagesController@mescommandes');

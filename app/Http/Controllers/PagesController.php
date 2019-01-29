@@ -108,7 +108,7 @@ class PagesController extends Controller
       if(Auth::ID() && Auth::user()->permission == 2){
 
         $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
-        dump($request);
+
         $name = 0;
         if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -227,7 +227,7 @@ class PagesController extends Controller
     public function catecom($idcat){
         $stock = DB::connection('mysql2')->table('stock')->where('ID_Categories', '=', $idcat)->get();
         $categories = DB::connection('mysql2')->table('categories')->where('ID', '=', $idcat)->get();
-        //dump($categories)
+
         return view('pages.catecom')->with(array('stock'=>$stock, 'categories'=>$categories));
     }
 
@@ -317,7 +317,7 @@ class PagesController extends Controller
         $rechercheprod = DB::connection('mysql2')->table('stock')
                   ->where('stock.Name', 'LIKE', '%'.$recherche->input('recherche').'%')
                   ->get();
-        dump($rechercheprod);
+
         return view('pages.rechercheecom')->with(array('rechercheprod'=>$rechercheprod));
     }
 
@@ -332,6 +332,7 @@ class PagesController extends Controller
         ->table('events')
         ->join('img', 'events.id', '=', 'img.id_events')
         ->where('Thumbnail', '=', 1)
+        ->orderBy('Event_Date')
         ->get();
 
         return view('pages.event')->with(array('events'=>$events));
@@ -380,6 +381,17 @@ class PagesController extends Controller
       return redirect()->action('PagesController@boiteaidees');
     }
 
+    public function approveevent(Request $request){
+
+      if(Auth::ID()){
+          DB::connection('mysql2')->table('voteevent')->where('ID_Events', '=',  $request->input('eventid'))->delete();
+          DB::connection('mysql2')->table('events')->where('ID','=', $request->input('eventid'))->update(array('Type' => 1));
+        return redirect()->action('PagesController@boiteaidees');
+      }else{
+        return view('pages.login');
+      }
+    }
+
     public function switchregisterevent(Request $request){
 
       if($request->input('registerstatus') == 0){
@@ -396,26 +408,26 @@ class PagesController extends Controller
         $events = DB::connection('mysql2')->table('events')
         ->join('img','ID_Events','=','Events.ID')
         ->where('ID_Events','=', $idevent)
-        ->select('img.ID', 'events.ID_Author', 'Event_Date', 'TXT', 'TITLE', 'Type', 'URL', 'ID_Events', 'Thumbnail')
+        ->select('img.ID', 'events.ID_Author', 'Reported_Event', 'Event_Date', 'TXT', 'TITLE', 'Type', 'URL', 'ID_Events', 'Thumbnail')
         ->get();
-        //$img = DB::connection('mysql2')->table('img')->join('events','ID','=','img.ID_Events')->get();
 
         $registered = DB::connection('mysql2')
         ->table('events')
         ->join('register', 'events.ID', '=', 'register.ID_Event')
-        ->get();
+        ->where('ID_Event','=', $idevent)
+        ->where('ID_User','=', Auth::ID())
+        ->first();
 
         $events->idevent = $idevent;
 
         $events->registerstatus = 0;
-        foreach($registered as $reg){
-            if($reg->ID_User == Auth::ID()){
-              $events->registerstatus = 1;
-            }
+        if($registered != null){
+            $events->registerstatus = 1;
         }
 
       $events->AuthorName = PagesController::getUserName($events[0]->ID_Author);
-      dump($events);
+      $events->date = explode("-",$events[0]->Event_Date);
+
       return view('pages.visuevent')->with(array('events'=>$events, 'registered'=>$registered))->with('idevent', $idevent);
     }
 
@@ -452,9 +464,9 @@ class PagesController extends Controller
         DB::connection('mysql2')->table('img')->insert(['ID_Author' =>  Auth::ID(), 'URL' => $name, 'ID_Events' => $ID->ID, 'Thumbnail' => 1]);
 
           if(Auth::User()->permission == 2){
-                return action('PagesController@event');
+                return view('pages.vent');
           }else{
-            return action('PagesController@boiteaidees');
+            return redirect()->action('PagesController@visuevent', ['idevent' => $ID->ID]);
           }
       }else{
         return view('auth.login');
@@ -497,7 +509,7 @@ class PagesController extends Controller
         }
 
         $img->AuthorName = PagesController::getUserName($img->ID_Author);
-        dump($img);
+
         return view('pages.photo')->with(array('comments'=>$comments, 'img'=>$img, 'likes'=>$likes));
     }
 

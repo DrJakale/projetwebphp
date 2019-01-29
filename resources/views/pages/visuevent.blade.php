@@ -5,16 +5,17 @@
 @if(Auth::ID())
 <div class="container">
 @if(Auth::User()->permission == 3)
-  <div class="btnsignaler" >
+  <div class="btnsignaler">
     <form method="post" action="/event/{{$idevent}}/report" >
       @csrf
       <input type="hidden" name="idevent" value="{{$idevent}}">
       <input type="submit" class="btn btn-sm btn-danger" value="{{ $events[0]->Reported_Event == 0 ? 'Signaler' : 'Annuler le signalement' }}">
     </form>
+    @else
+    <div class="btnsignaler">
     @endif
   </div>
   @if($events->registerstatus == 1 && $events[0]->Type == 1)
-  <div class="marginbottom">
   <form method="post" action="/event/{{$idevent}}" >
     @csrf
     <input type="hidden" name="eventid" value="{{$events->idevent}}">
@@ -23,12 +24,17 @@
     <input type="submit" name="btnlike" value="Se désinscrire" class="btn btn-sm btn-warning"/>
   </form>
   @endif
+  @if(Auth::User()->permission == 2 && $events[0]->Type == 0)
+  <form method="post" action="/event/{{$idevent}}/approve" >
+    @csrf
+    <input type="hidden" name="eventid" value="{{$events->idevent}}">
+    <input type="submit" name="btnlike" value="Approuver événement" class="btn btn-sm btn-success"/>
+  </form>
+  @endif
   @if($events->registerstatus == 1 && $events[0]->Type == 2)
     <a href="{{ url('importpicture') }}/{{$idevent}}" name="btn" class="btn btn-sm btn-info">Publier Image</a>
   @endif
-
   @if($events->registerstatus == 0 && $events[0]->Type == 1)
-
   <form method="post" action="/event/{{$idevent}}" >
     @csrf
     <input type="hidden" name="eventid" value="{{$events->idevent}}">
@@ -36,13 +42,10 @@
     <input type="hidden" name="registerstatus" value="0">
     <input type="submit" name="btnlike" value="S'inscrire" class="btn btn-sm btn-success"/>
   </form>
-  </div>
   @endif
   @endif
-
-
-
 </div>
+
 <div class = "container">
   <div col-sm-6>
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -78,7 +81,7 @@
    <div class="wrapper">
     <div class="caption post-content">
       <h3>{{$events[0]->TITLE}}</h3>
-      <h5>{{$events[0]->Event_Date}}</h5>
+      <h5>{{$events->date[2]}}/{{$events->date[1]}}/{{$events->date[0]}}</h5>
       <p>{{$events[0]->TXT}}</p>
     </div>
   </div>

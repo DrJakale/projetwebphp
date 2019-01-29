@@ -26,7 +26,7 @@
     @if($event->Type == 0 && $event->Reported_Event == 1)
     <a href="event/{{$event->ID_Events}}">
       <div class="container">
-        <img class="baiimg" src="{{$event->URL}}" alt="..." height="180" width="320"/>
+        <img class="baiimg" src="{{ asset('eventimage') }}/{{$event->URL}}" alt="..." height="180" width="320"/>
         <div class="baitxt">
           <h3>{{$event->TITLE}}</h3>
           <p>{{$event->TXT}}</p>
@@ -48,9 +48,9 @@
     @if($event->Type == 0 && $event->Reported_Event == 0)
     <a href="event/{{$event->ID_Events}}">
       <div class="container">
-        <img class="baiimg" src="{{$event->URL}}" alt="..." height="180" width="320"/>
+        <img class="baiimg" src="{{ asset('eventimage') }}/{{$event->URL}}" alt="..." height="180" width="320"/>
         <div class="baitxt">
-          <h3>{{$event->TITLE}}</h3> 
+          <h3>{{$event->TITLE}}</h3>
         </a>
         <div style="float: left;">
           @if(Auth::ID())
@@ -62,7 +62,7 @@
             }
           }
           ?>
-          @if($event->votestatus == 1) 
+          @if($event->votestatus == 1)
           <div class="marginright">
           <form method="post" action="boiteaidees" >
             @csrf
@@ -90,7 +90,7 @@
           <p><br>{{$event->TXT}}</p>
         </div>
       </div>
-    
+
     <hr>
     @endif
     @endforeach
