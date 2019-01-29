@@ -58,20 +58,18 @@
   @endforeach
 </div>
 
-
 @if(Auth::ID())
 <div class="container"  style="margin-top: 10px;">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-
         <div class="card-body">
           <form method="post" action="{{$img->ID}}/publishcommentary" >
             @csrf
             <div class="form-group row" >
               <label for="commentaire" class="col-md-2 col-form-label text-md-right">Commentaire</label>
               <div class= "form-group" style="margin-left: 15px; margin-right: 15px;">
-                <textarea data-length=250 class="form-control" name="comment" cols="100" rows="5"></textarea>
+                <textarea data-length=250 class="form-control" required autofocus placeholder="Entrez votre commentaire" name="comment" cols="100" rows="5"></textarea>
                 <input type="hidden" name="author" value="{{Auth::ID()}}">
               </div>
             </div>

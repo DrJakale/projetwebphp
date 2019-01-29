@@ -12,7 +12,7 @@ class PagesController extends Controller
   //API ID = Nom Prénom
   public function getUserName($iduser){
 
-    $json = json_decode(file_get_contents("http://chabanvpn.ovh:8080/api/users/" . $iduser), true);
+    $json = json_decode(file_get_contents("http://192.168.0.1:8080/api/users/" . $iduser), true);
     $res = (array) $json;
 
     foreach($res as $res){
@@ -39,7 +39,37 @@ class PagesController extends Controller
 
     public function createproduct(){
       if(Auth::ID() && Auth::user()->permission == 2){
-        return view('pages.createproduct');
+
+        $availablecat = DB::connection('mysql2')->table('categories')
+              ->get();
+
+        return view('pages.createproduct')->with(array('availablecat'=>$availablecat));
+      }else{
+        return view('auth.login');
+      }
+    }
+
+    public function actioncreateproduct(Request $request){
+      if(Auth::ID() && Auth::user()->permission == 2){
+
+        //$this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
+        dump($request);
+        $name = 0;
+        if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/illustrations');
+                $image->move($destinationPath, $name);
+        }
+
+        DB::connection('mysql2')->table('stock')->insert(['Name' =>  $request->input('title'), 'IMG_URL' => $name, 'Desc' => $request->input('desc'), 'Price' => $request->input('price'), 'ID_Categories' => $request->input('cat')]);
+
+          /*TODO*/
+
+        $availablecat = DB::connection('mysql2')->table('categories')
+              ->get();
+
+        return view('pages.createproduct')->with(array('availablecat'=>$availablecat));
       }else{
         return view('auth.login');
       }
@@ -326,7 +356,8 @@ class PagesController extends Controller
               $events->registerstatus = 1;
             }
         }
-        
+
+      dump($events);
       return view('pages.visuevent')->with(array('events'=>$events, 'registered'=>$registered))->with('idevent', $idevent);
     }
 

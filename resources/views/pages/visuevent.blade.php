@@ -12,7 +12,7 @@
     </form>
     @endif
   </div>
-  @if($events->registerstatus == 1)
+  @if($events->registerstatus == 1 && $events[0]->Type == 1)
   <div class="marginbottom">
   <form method="post" action="/event/{{$idevent}}" >
     @csrf
@@ -21,10 +21,18 @@
     <input type="hidden" name="registerstatus" value="1">
     <input type="submit" name="btnlike" value="Se désinscrire" class="btn btn-sm btn-warning"/>
   </form>
+  @endif
+  @if($events->registerstatus == 1 && $events[0]->Type == 2)
+  <form method="post" action="/event/{{$idevent}}" >
+    @csrf
+    <input type="hidden" name="eventid" value="{{$events->idevent}}">
+    <input type="hidden" name="userid" value="{{Auth::ID()}}">
+    <input type="submit" name="btnlike" value="Publier Image" class="btn btn-sm btn-info"/>
+  </form>
+  @endif
 
+  @if($events->registerstatus == 0 && $events[0]->Type == 1)
 
-  @else
-  
   <form method="post" action="/event/{{$idevent}}" >
     @csrf
     <input type="hidden" name="eventid" value="{{$events->idevent}}">

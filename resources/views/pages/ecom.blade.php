@@ -15,8 +15,7 @@
 <div class="container" >
     <h3>Liste des catégories</h3>
   @foreach ($categories as $category)
-    <div class="col-sm-4" href="cat/{{$category->ID}}">
-        <img src="{{$category->IMG_URL}}" alt="..." height="180" width="320"/>
+    <div class="col-sm-2" href="cat/{{$category->ID}}">
            <div class="wrapper">
                 <div class="caption post-content col-sm-6">
                     <a href="cat/{{$category->ID}}">
@@ -35,7 +34,7 @@
         <div class="col-sm-4">
             <input type="hidden" name="stockid" value="{{$test->ID_Stock}}"/>
             <input type="hidden" name="userid" value="{{Auth::ID()}}"/>
-            <img src="{{$test->IMG_URL}}" alt="..." height="180" width="320"/>
+            <img src="{{ asset('images/$test->IMG_URL') }}" alt="..." height="180" width="320"/>
             <div class="wrapper">
                     <div class="caption post-content col-sm-6">
                         <h3>{{$test->Name}}</h3>
@@ -50,7 +49,7 @@
                 </div>
             </div>
         </form>
-       
+
     @endforeach
 </div>
 <div class="container com-case">
@@ -61,7 +60,7 @@
     <div class="col-sm-4">
         <input type="hidden" name="stockid" value="{{$produit->ID}}"/>
         <input type="hidden" name="userid" value="{{Auth::ID()}}"/>
-        <img src="{{$produit->IMG_URL}}" alt="..." height="180" width="320"/>
+        <img src="{{ asset('illustrations') }}/{{$produit->IMG_URL}}" alt="..." height="180" width="320"/>
            <div class="wrapper">
                 <div class="caption post-content col-sm-6">
                     <h3>{{$produit->Name}}</h3>

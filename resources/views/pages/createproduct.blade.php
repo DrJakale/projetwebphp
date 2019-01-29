@@ -4,50 +4,50 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Evénement') }}</div>
+                <div class="card-header">Créer Produit</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="createproduct" enctype="multipart/form-data">
                         @csrf
-
                         <div class="form-group row">
-                            <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Titre') }}</label>
-
+                            <label class="col-md-4 col-form-label text-md-right">Titre</label>
                             <div class="col-md-6">
-                                <input id="nom" type="text" class="form-control{{ $errors->has('nom') ? ' is-invalid' : '' }}" name="nom" value="{{ old('nom') }}" required autofocus placeholder="Entrez un titre">
-
-                                @if ($errors->has('nom'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('nom') }}</strong>
-                                    </span>
-                                @endif
+                                <input type="text" name="title" required autofocus placeholder="Entrez un titre">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="prenom" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
-
+                            <label class="col-md-4 col-form-label text-md-right">Prix</label>
                             <div class="col-md-6">
-                                <textarea class="form-control" rows="7" placeholder="Entrez une descrition"></textarea>
-
-                                @if ($errors->has('prenom'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('prenom') }}</strong>
-                                    </span>
-                                @endif
-                                
+                                <input type="number" step="0.01" name="price" required autofocus placeholder="Entrez un prix">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
+                            <label for="Catégorie" class="col-md-4 col-form-label text-md-right">Catégorie</label>
+                            <div class="col-md-6">
+                                <select name="cat" required style="height: 25px;">
+                                @foreach($availablecat as $cat)
+                                <option value="{{$cat->ID}}">{{$cat->TITLE}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Description</label>
+                            <div class="col-md-6">
+                                <textarea name="desc" class="form-control" rows="7" required autofocus placeholder="Entrez une description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">Illustration (.jpeg/.png)</label>
 
                             <div class="col-md-6">
-                                <input type="file" name="image" id="image" accept="image/png, image.jpeg">
-
-                                @if ($errors->has('prenom'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('prenom') }}</strong>
-                                    </span>
-                                @endif
+                                <!--<input type="file" name="image" required autofocus accept="image/png, image/jpeg">-->
+                                <input name="image" type="file" required autofocus id="image">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <input type="submit" class="btnrefresh" style=" float: right; margin-top: 5px; margin-right: 5px;" value="Publier"/>
                             </div>
                         </div>
                     </form>
