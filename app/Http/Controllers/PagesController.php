@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use DB;
 use View;
 use Auth;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\email;
 
 class PagesController extends Controller
 {
   //API ID = Nom Prénom
-  public function getUserName($iduser){
+  public  function getUserName($iduser){
 
     $json = json_decode(file_get_contents("http://chabanvpn.ovh:8080/api/users/" . $iduser), true);
     $res = (array) $json;
@@ -128,6 +131,12 @@ class PagesController extends Controller
       }
     }
 
+    // Fonction Récuperation Mailing
+
+   
+    
+
+
     //pages ecommerce
     public function panier(){
       if(Auth::id()){
@@ -156,6 +165,7 @@ class PagesController extends Controller
             }
 
             $basket->orderid = $orderid;
+             
 
         return view('pages.panier')->with(array('basket'=>$basket));
       }else{
@@ -208,6 +218,7 @@ class PagesController extends Controller
 
         if(null !== $request->input('order')){
             DB::connection('mysql2')->table('orderindex')->where('id', $request->input('orderid'))->update(array('STATUS' => 1, 'Date' => date('Y-m-d')));
+            Mail::to('ef5ee4b162-84c9e6@inbox.mailtrap.io')->send (new email(PagesController::getUserName(Auth::ID())));
         }
         return redirect()->action('PagesController@panier');
       }
@@ -215,6 +226,7 @@ class PagesController extends Controller
       public function ecom(){
         $stock = DB::connection('mysql2')->table('stock')->get();
         $categories = DB::connection('mysql2')->table('categories')->get();
+        // fonction pour afficher le top des ventes
         $topvente = DB::connection('mysql2')->table('contains')
             ->select(DB::raw('ID_Stock, SUM(Quantity) as total, stock.Name, stock.IMG_URL, stock.Desc, stock.Price'))
             ->groupBy('ID_Stock')
@@ -548,3 +560,6 @@ class PagesController extends Controller
         return redirect()->action('PagesController@photo', ['idphoto' => $request->input('idphoto')]);
     }
 }
+
+
+

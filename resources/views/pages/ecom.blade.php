@@ -25,7 +25,6 @@
             </div>
         </div>
     @endforeach
-</div>
 <div class="container" >
     <h3>Top des ventes</h3>
   @foreach ($topvente as $test)
@@ -34,7 +33,7 @@
         <div class="col-sm-4">
             <input type="hidden" name="stockid" value="{{$test->ID_Stock}}"/>
             <input type="hidden" name="userid" value="{{Auth::ID()}}"/>
-            <img src="{{ asset('images/$test->IMG_URL') }}" alt="..." height="180" width="320"/>
+            <img src="{{ asset('illustrations') }}/{{$test->IMG_URL}}" alt="..." height="180" width="320"/>
             <div class="wrapper">
                     <div class="caption post-content col-sm-6">
                         <h3>{{$test->Name}}</h3>

@@ -129,7 +129,17 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+                        <div>
+                            <input type="checkbox" class="check" name="case" required>
+                            <label for="scales"><a href="{{ url('/privacy') }}">Conditions générales d'utilisations</a></label>
+                            @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
 
+
+                            </div>  
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
