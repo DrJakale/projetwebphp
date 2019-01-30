@@ -34,6 +34,9 @@
   @if($events->registerstatus == 1 && $events[0]->Type == 2)
     <a href="{{ url('importpicture') }}/{{$idevent}}" name="btn" class="btn btn-sm btn-info">Publier Image</a>
   @endif
+  @if((Auth::User()->permission == 2 || $events[0]->ID_Author == Auth::ID()) && $events[0]->Type >= 1)
+    <a href="{{ url('getevententries') }}/{{$idevent}}" name="btn" class="btn btn-sm btn-info">Obtenir la liste des inscrits</a>
+  @endif
   @if($events->registerstatus == 0 && $events[0]->Type == 1)
   <form method="post" action="/event/{{$idevent}}" >
     @csrf

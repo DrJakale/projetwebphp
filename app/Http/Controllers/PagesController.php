@@ -369,6 +369,25 @@ class PagesController extends Controller
         return view('pages.event')->with(array('events'=>$events));
     }
 
+    public function getEventEntries($idevent){
+      if(Auth::id()){
+
+        $registered = DB::connection('mysql2')
+        ->table('events')
+        ->join('register', 'events.ID', '=', 'register.ID_Event')
+        ->where('ID_Event','=', $idevent)
+        ->get();
+
+        foreach ($registered as $reg) {
+          $reg->Name = PagesController::getUserName($reg->ID_User);
+        }
+
+        return view('pages.userlist')->with(array('registered'=>$registered))->with('idevent', $idevent);
+      }else{
+        return view('auth.login');
+      }
+    }
+
     public function boiteaidees(){
 
         $events = DB::connection('mysql2')

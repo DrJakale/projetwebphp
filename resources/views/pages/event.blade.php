@@ -18,7 +18,7 @@
                         <h3>{{$event->TITLE}}</h3>
                     </div>
                 </div>
-            
+
             </a>
             </div>
 
@@ -41,7 +41,7 @@
                             <h3>{{$event->TITLE}}</h3>
                         </div>
                     </div>
-                
+
                 </a>
                 </div>
 
@@ -55,10 +55,10 @@
         <div class="container event-case" >
             @foreach ($events as $event)
             @if($event->Type == 2 && $event->Reported_Event == 0)
-            
+
                 <div class="col-md-4 ">
                 <a class="textevent" href="event/{{$event->ID_Events}}">
-                    <img src="{{$event->URL}}" alt="..." height="180" width="320" />
+                    <img src="{{ asset('eventimage') }}/{{$event->URL}}" alt="..." height="180" width="320" />
                     <div class="wrapper">
                         <div class="caption post-content">
                             <h3>{{$event->TITLE}}</h3>

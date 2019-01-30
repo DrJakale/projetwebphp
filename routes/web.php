@@ -22,6 +22,7 @@ Auth::routes();//Route pour login et register
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Routes pour onglets du site
+Route::get('getevententries/{idevent}', 'PagesController@getEventEntries');
 Route::get('downloadpictures', 'PagesController@exportpictures');
 Route::get('importpicture/{idevent}', 'PagesController@importpicture');
 Route::post('importpicture/{idevent}', 'PagesController@actionimportpicture');
