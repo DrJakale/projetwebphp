@@ -133,7 +133,4 @@ return [
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
 
-    'reply_to'=>['address' => 'example@example.com',
-                 'name' => 'App name']
-
 ];

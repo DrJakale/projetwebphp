@@ -25,7 +25,8 @@
             </div>
         </div>
     @endforeach
-<div class="container" >
+</div>
+<div class="container ">
     <h3>Top des ventes</h3>
   @foreach ($topvente as $test)
   <form method="post" action="ecom">
